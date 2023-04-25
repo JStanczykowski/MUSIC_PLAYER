@@ -1,0 +1,170 @@
+.audio-player {
+    display: flex;
+    align-items: center;
+    background-color: #282828;
+    color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    position:fixed;
+    bottom:0;
+    z-index:50000;
+    width: 100vw;
+    height: 7%;
+    border-top: 1px solid gray;
+}
+.progress-bar-fill::after {
+    content: ".";
+    position: absolute;
+    right: -6px;
+    top: -61px;
+    color:darkgray;
+    font-size: 73px;
+}
+.song-info {
+
+    width: 20%;
+}
+
+.song-title {
+    font-size: 27px;
+    font-weight: bold;
+    margin: 0 0 5px 35px;
+}
+
+.artist-name {
+    font-size: 17px;
+    margin: 0 0 5px 35px;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    margin-left: 36%;
+    margin-bottom: 0.7%;
+}
+
+.prev-button,
+.next-button,
+.play-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: color 0.2s ease-in-out;
+}
+
+.prev-button:hover,
+.next-button:hover,
+.play-button:hover {
+    color: #1db954;
+}
+
+.prev-button svg,
+.next-button svg,
+.play-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+.time-info {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.current-time {
+    margin-left: 9%;
+    display: flex;
+    align-items: center;
+
+    font-size: 14px;
+}
+
+.duration {
+
+    margin-left: 73%;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+/* Poniższe style dotyczą kontrolki odtwarzacza */
+.audio-player audio {
+    width: 100%;
+    margin-top: 20px;
+
+
+}
+
+.audio-player audio::-webkit-media-controls {
+    display: none !important;
+}
+
+.audio-player audio::-webkit-media-controls-panel {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #282828;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.audio-player audio::-webkit-media-controls-play-button {
+    display: none !important;
+}
+
+.audio-player audio::-webkit-media-controls-timeline {
+    height: 2px !important;
+    background-color: #b3b3b3 !important;
+}
+
+.audio-player audio::-webkit-media-controls-current-time-display,
+.audio-player audio::-webkit-media-controls-time-remaining-display {
+    font-size: 12px !important;
+}
+
+.audio-player audio::-webkit-media-controls-volume-slider,
+.audio-player audio::-webkit-media-controls-mute-button {
+    display: none !important;
+}
+.progress-bar {
+    width: 60%;
+    height: 4px;
+    margin-left: 12%;
+    border-radius: 15px;
+    background-color: #ddd;
+    position: relative;
+
+}
+.bar{
+    display: inline;
+    width: 80%;
+    margin-bottom: -1%;
+}
+.progress-bar-fill {
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 15px;
+    background-color: #007bff;
+    animation: none;
+    transition: width 0.1s linear;
+}
+.logomuza{
+    width: 17vw;
+}
+
+.muza{
+    right: 8%;
+    bottom: 11%;
+    position:fixed;
+    width: 17vw;
+    margin-right: 75vw;
+    margin-top: 3%;
+}

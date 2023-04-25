@@ -1,0 +1,126 @@
+.container{
+    width: 70%;
+    max-width: 500px;
+    position: absolute; /* lub absolute w zależności od kontekstu */
+    bottom: 10%; /* lub top: 100px; dla pozycji na górze */
+
+    background-color:white;
+    border-radius: 14px;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    height: 40%;
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+.addCom{
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+input[type="text"],
+textarea {
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    height: 12vh;
+    width: 150%;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-left: 20%;
+}
+
+.button-container button {
+    margin-right: 1rem;
+}
+
+button[type="submit"]
+ {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 90px;
+    float: left;
+}
+button[type="clear"]{
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    width: 90px;
+}
+button[type="submit"]:hover {
+    background-color: #3e8e41;
+}
+
+.star-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    direction: rtl;
+}
+
+.star {
+    font-size: 2rem;
+    cursor: pointer;
+    color: #ccc;
+    text-shadow: 1px 1px #bbb;
+    margin-right: 5px;
+}
+
+.star:hover:before,
+.star:hover ~ .star:before,
+input[type="radio"]:checked ~ .star:before {
+    content: "\2605";
+    position: absolute;
+    color: #ffca08;
+    text-shadow: 1px 1px #ffca08;
+    transition: all 0.25s ease-in-out;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+.comment-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    float: left;
+}
+
+.comment-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

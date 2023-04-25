@@ -1,0 +1,31 @@
+@import url('~bootstrap/dist/css/bootstrap.min.css');
+
+.bg-image-vertical {
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: auto 100%;
+}
+.logoHe{
+ margin-left: -7%;
+}
+@media (min-width: 1025px) {
+    .h-custom-2 {
+        height: 100%;
+    }
+}
+img{
+    object-fit: cover;
+    object-position: left;
+}
+.fw-normal mb-3 pb-3 {
+    letter-spacing: 1px;
+}
+.fas fa-crow fa-2x me-3 pt-5 mt-xl-4 {
+    color: #709085;
+}
+form{
+    width: 23rem;
+    margin-bottom: 50%;
+}
