@@ -85,6 +85,16 @@ public List<music> getMusicIdsByPlayListId(@PathVariable String playlistId) {
         playlist.setOwner(payload.get("username"));
         return playListRepository.save(playlist);
     }
+
+    @PreAuthorize("hasAnyRole('USER','ADMIN','MODER')")
+    @DeleteMapping("/{playlistId}/deletePlayList")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public void deletePlaylist(@PathVariable("playlistId") String playlistId) throws ChangeSetPersister.NotFoundException {
+        ObjectId playlistObjectId = new ObjectId(playlistId);
+        PlayList playlist = playListRepository.findById(playlistObjectId)
+                .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+        playListRepository.delete(playlist);
+    }
 //zrob drugi endpoint gdzie bedziesz zwracał wszystko oprocz reviews i bedzie gituwa
 @PreAuthorize("hasAnyRole('USER','ADMIN','MODER')")
 @PostMapping("/{playlistId}/addMusic")

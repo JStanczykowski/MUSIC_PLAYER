@@ -4,13 +4,11 @@
     height: 100%;
     background-color: rgb(221,127,211);
     position: relative;
+    overflow-y: scroll;
 
-    overflow: auto;
 }
 .card-body{
-    position: relative;
 
-    height: 400px;
 }
 .xd{
     background-color: rgb(221,127,211);
@@ -19,4 +17,50 @@
     position: absolute;
 
 
+}
+.card{
+    background-color: rgb(30,30,30);
+    padding: 5px 5px 5px 5px;
+    float:left;
+    height: 270px;
+    margin: 20px 20px 20px 20px;
+    position: relative;
+}
+.play-button{
+
+}
+.card-title:hover{
+    text-decoration: underline ;
+    color:papayawhip;
+    font-weight: bold;
+}
+.play-btn {
+    display: none;
+    position: absolute;
+    top: 60%;
+    left: 80%;
+    transform: translate(-30%, -30%);
+    padding-bottom: 5px;
+}
+
+.card:hover .play-btn{
+    display: block;
+}
+.card:hover {
+    background-color: rgba(30, 30, 30, 0.7);
+    transition: background-color 0.3s ease-out;
+}
+.card-img-top{
+    border-radius: 7%;
+}
+.card-title{
+    text-align: center;
+    color:white;
+    margin-bottom:10px;
+    font-family: "Times New Roman", Times, serif;
+}
+.card-container{
+   width: 80%;
+    margin-left: 20%;
+    margin-bottom: 20%;
 }

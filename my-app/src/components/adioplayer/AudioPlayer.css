@@ -45,7 +45,8 @@
 
 .prev-button,
 .next-button,
-.play-button {
+.play-button,
+.button-del{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,7 +64,10 @@
 .play-button:hover {
     color: #1db954;
 }
-
+.button-del:hover{
+    color:darkred;
+}
+.play-button-
 .prev-button svg,
 .next-button svg,
 .play-button svg {
