@@ -137,22 +137,25 @@ function MidSide() {
         requestBody.idPlayList=idPlayList;
         requestBody.idMusic=idMusic;
         console.log(requestBody);
-        try{
-            const response = await fetch(`http://localhost:8080/api/v1/playlist/${requestBody.idPlayList}/addMusic}`, {
-                method: 'POST',
+        console.log("xd " +localStorage.getItem('accessToken'));
+        try {
+            const response = await api.post(`/api/v1/playlist/${requestBody.idPlayList}/addMusic`, [ idPlayList, idMusic ], {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
                     'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
                 },
-                body: JSON.stringify(requestBody),
             });
-
-
+            if (response.status === 200) {
+                console.log("success POST ")
+                const playlist = response.data;
+                console.log(playlist); // access the returned PlayList instance
+            } else {
+                console.log('Error create playlist');
+            }
         } catch (error) {
-            console.log(await error);
+            console.log(error);
         }
-        }
+    }
 
     return (
         <Provider store={store}>

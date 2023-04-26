@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -85,23 +86,24 @@ public List<music> getMusicIdsByPlayListId(@PathVariable String playlistId) {
         return playListRepository.save(playlist);
     }
 //zrob drugi endpoint gdzie bedziesz zwracał wszystko oprocz reviews i bedzie gituwa
-    @PreAuthorize("hasAnyRole('USER','ADMIN','MODER')")
-    @PostMapping("/{playlistId}/addMusic")
-    @CrossOrigin
-    public PlayList addMusicToPlaylist(@PathVariable("playlistId") String playlistId,
-                                       @RequestBody List<String> musicIds) throws ChangeSetPersister.NotFoundException {
-        ObjectId playlistObjectId = new ObjectId(playlistId);
-        PlayList playlist = playListRepository.findById(playlistObjectId)
-                .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
-        List<ObjectId> existingMusicIds = playlist.getMusicIds();
-        List<ObjectId> newMusicIds = musicIds.stream()
-                .map(ObjectId::new)
-                .filter(id -> !existingMusicIds.contains(id))
-                .collect(Collectors.toList());
-        existingMusicIds.addAll(newMusicIds);
-        playlist.setMusicIds(existingMusicIds);
-        playListRepository.save(playlist);
-        return playlist;
-    }
+@PreAuthorize("hasAnyRole('USER','ADMIN','MODER')")
+@PostMapping("/{playlistId}/addMusic")
+@CrossOrigin(origins = "http://localhost:3000")
+public ResponseEntity addMusicToPlaylist(@PathVariable("playlistId") String playlistId,
+                                         @RequestBody List<String> musicIds) throws ChangeSetPersister.NotFoundException {
+    ObjectId playlistObjectId = new ObjectId(playlistId);
+    PlayList playlist = playListRepository.findById(playlistObjectId)
+            .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+    List<ObjectId> existingMusicIds = playlist.getMusicIds();
+    List<ObjectId> newMusicIds = musicIds.stream()
+            .map(ObjectId::new)
+            .filter(id -> !existingMusicIds.contains(id))
+            .collect(Collectors.toList());
+    existingMusicIds.addAll(newMusicIds);
+    playlist.setMusicIds(existingMusicIds);
+    playListRepository.save(playlist);
+    return ResponseEntity.ok()
+            .body(playlist);
+}
 
 }
