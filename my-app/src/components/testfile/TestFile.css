@@ -13,7 +13,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin-top: 50px; /* Dostosuj wartość, aby uzyskać odpowiedni odstęp */
+    margin-top: 10px; /* Dostosuj wartość, aby uzyskać odpowiedni odstęp */
     height: calc(100% - 20vh); /* Dostosuj wartość, aby uzyskać odpowiedni odstęp */
 }
 .wrapper {
@@ -28,7 +28,7 @@
     overflow: auto;
 
     position: relative;
-    padding-bottom: 200px;
+    padding-bottom: 50px;
 }
 
 .imgStyle {
@@ -42,7 +42,8 @@
 }
 
 .content {
-    margin-bottom: -12%;
+    position: relative;
+    top: 7%;
 }
 
 h1 {

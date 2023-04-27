@@ -72,7 +72,9 @@ function TestFile() {
                                 </div>
                             ))}
                     </div>
-                    <AudioPlayer /* pass any necessary props here */ />
+                    <div className="player">
+                        <AudioPlayer />
+                    </div>
                 </div>
             </div>
         </Provider>

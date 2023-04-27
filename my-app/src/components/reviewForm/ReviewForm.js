@@ -85,9 +85,10 @@ return (
                     </div>
                 </fieldset>
             </div>
-            <div className="form-group">
+            <div className="form-group2">
       <textarea
           rows="5"
+          className="comment"
           placeholder="What is your opinion?"
           id="comment"
           value={comment}

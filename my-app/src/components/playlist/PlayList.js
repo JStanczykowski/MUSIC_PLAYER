@@ -9,6 +9,7 @@ import api from '../../api/axiosConfig';
 import AddPlayList from "../addPlayList/AddPlayList";
 import  nuta from "../../musicElement/png/333.png"
 import {FaHeart, FaPlayCircle,FaTrashAlt} from "react-icons/fa";
+import {Alert, AlertTitle} from "@mui/material";
 function PlayList(props) {
     const navigate = useNavigate();
     const [playlistApi, setPlayList] = useState([]);
@@ -55,16 +56,16 @@ function PlayList(props) {
             if (response.status === 200) {
                 console.log("success DELETE ");
                 const playlist = response.data;
-                console.log(playlist); // access the returned PlayList instance
-                setIsDeleted(true); // set isDeleted to true when the playlist is successfully deleted
-                setPlayList(playlistApi.filter(item => item.id !== idPlayList)); // update the playlistApi state
+                console.log(playlist);
+                setIsDeleted(true);
+                setPlayList(playlistApi.filter(item => item.id !== idPlayList));
             } else {
                 console.log('Error delete playlist');
             }
         } catch (error) {
             console.log(error);
             if (error.response && error.response.status === 404) {
-                setIsDeleted(true); // set isDeleted to true when the playlist is not found (404)
+                setIsDeleted(true);
             }
         }
     };
@@ -91,6 +92,11 @@ function PlayList(props) {
                             <AddPlayList setCreate={setCreate} />
                         )}
                     </div>
+                    {isDeleted &&(    <Alert severity="success">
+                        <AlertTitle>Success</AlertTitle>
+                        Success delete PlayList <strong>check it out!</strong>
+                    </Alert>)}
+
                     <div className="card-container">
                         {playlistApi.map((plalist) => (
                             <div className="card" >
@@ -114,11 +120,7 @@ function PlayList(props) {
                 <div className="player">
                     <AudioPlayer />
                 </div>
-                {isDeleted && (
-                    <div className="success-delete">
-                        <p>Success delete</p>
-                    </div>
-                )}
+
             </div>
         </Provider>
 );

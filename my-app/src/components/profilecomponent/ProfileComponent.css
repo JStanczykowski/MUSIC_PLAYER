@@ -1,0 +1,22 @@
+.profile{
+    width: 13%;
+    border-radius: 30px;
+    height: 5%;
+    background-color: black;
+    margin-left: 85%;
+    padding: 2px 2px 2px 2px;
+    font-weight: bold;
+    color:white;
+    margin-top: 10px;
+}
+.profile:hover{
+    font-size: 20px;
+    transition: font-size 0.3s ease-out;
+}
+.profProfil{
+    height: 2vw;
+    width: 2vw;
+    border-radius: 50%;
+    float: left;
+    margin-right: 2vw;
+}

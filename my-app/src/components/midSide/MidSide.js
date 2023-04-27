@@ -15,9 +15,12 @@ import { connect } from 'react-redux';
 import store, {playTrack} from "../store/store";
 import { Provider } from 'react-redux';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import Dropdown from 'react-bootstrap/Dropdown';
+import ProfileComponent from "../profilecomponent/ProfileComponent";
 import jwt_decode from "jwt-decode";
 function MidSide() {
+
     const [playlistApi, setPlayList] = useState([]);
     const dispatch = useDispatch();
     const location = useLocation();
@@ -163,6 +166,7 @@ function MidSide() {
             <div id="testfile-container"></div>
 
                 <div className="xd">
+                    <ProfileComponent name={username}/>
                     <div className="card-body"   >
                         {/*<LeftSide klik = {handleClick(newAudio.songTitle,newAudio.artistName,newAudio.audioSrc)}/>*/}
 
@@ -187,7 +191,7 @@ function MidSide() {
                                         </th>
                                         <td className="align-middle"
                                             onClick={() => toggleDiv(song.plik, song.tytul, song.artysta, song.number)}>
-                                            <span>{song.tytul}</span>
+                                            <span className="tytulMid">{song.tytul}</span>
                                         </td>
                                         <td className="align-middle">
                                             <FaPlayCircle onClick={() => {
@@ -201,13 +205,14 @@ function MidSide() {
                                         </td>
                                         {/*<FaPlusCircle className="button" />*/}
                                         <td className="align-middle">
-                                            <DropdownButton id="dropdown-basic-button" title={<FaPlusCircle className="button" />} className="custom-dropdown-button">
+                                            <NavDropdown   id="nav-dropdown-dark-example"
+                                                           menuVariant="dark" title={<FaPlusCircle className="button" />}>
                                                 {playlistApi.map((playlist)=>(
-                                                    <Dropdown.Item key={playlist.id}
+                                                    <NavDropdown.Item  key={playlist.id}
                                                                    onClick={() => addToPlayList(playlist.id, song.objectId)}
-                                                    >{playlist.name}</Dropdown.Item>
+                                                    >{playlist.name}</NavDropdown.Item>
                                                 ))}
-                                            </DropdownButton>
+                                            </NavDropdown>
                                         </td>
                                     </tr>
                                 );

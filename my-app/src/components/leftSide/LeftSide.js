@@ -26,6 +26,10 @@ function LeftSide  (props){
     const playlist = async (event)=>{
         navigate('/app/playlist');
     }
+    const search = async (event)=>{
+        navigate('/app/search');
+    }
+
     return(
         <div className="x">
             <div className="y">
@@ -36,7 +40,7 @@ function LeftSide  (props){
             <nav className="navX">
                 <ul className="ulX">
                     <li className="liX" onClick={app}> <FaHome />  Home</li>
-                    <li className="liX">   <FaSearch /> Search</li>
+                    <li className="liX" onClick={search}>   <FaSearch /> Search</li>
                     <li className="liX" onClick={playlist}><FaItunesNote /> Your Library</li>
                 </ul>
             </nav>

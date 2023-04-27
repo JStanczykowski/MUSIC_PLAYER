@@ -11,7 +11,9 @@ import AudioPlayer from "./components/adioplayer/AudioPlayer";
 import { Provider } from 'react-redux';
 import AddPlayList from "./components/addPlayList/AddPlayList";
 import store from './components/store/store';
+import SearchScreen from './components/searchscreen/SearchScreen';
 import PlayListSingle from './components/playlistsingle/PlayListSingle';
+import Message from "./components/message/Message";
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -32,6 +34,10 @@ function App() {
                         <LeftSide/><Reviews/></Provider></div>}/>
                     <Route path="/register" element={<Register/>}/>
                     <Route path="/app/playList" element={<div className="glowny"><Provider store={store}><LeftSide/><PlayList/>
+                    </Provider></div>}/>
+                    <Route path="/app/search" element={<div className="glowny"><Provider store={store}><LeftSide/><SearchScreen/>
+                    </Provider></div>}/>
+                    <Route path="/app/message" element={<div className="glowny"><Provider store={store}><Message/><SearchScreen/>
                     </Provider></div>}/>
                     <Route path="/app/playList/:id" element={<div className="glowny"><Provider store={store}><LeftSide/><PlayListSingle/>
                     </Provider></div>}/>

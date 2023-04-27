@@ -74,6 +74,12 @@
     font-size: 50px;
 
 }
+.tytulMid:hover{
+    font-size: 18px;
+    transition: font-size 0.3s ease-out;
+    font-weight: bold;
+    text-decoration: underline;
+}
 .button-del{
 
     font-size: 50px;
