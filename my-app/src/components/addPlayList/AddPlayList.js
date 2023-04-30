@@ -47,7 +47,7 @@ function AddPlayList({setCreate}) {
     return (
           <div>
               <form onSubmit={CreatePlayList}>
-                  <div className="form-group">
+                  <div className="form-group3">
                       <label htmlFor="exampleInputEmail1">Create new PlayList</label>
                       <input className="form-control form-control-sm" type="text" placeholder="Enter name"
                       value={name}

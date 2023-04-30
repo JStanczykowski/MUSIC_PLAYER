@@ -37,7 +37,7 @@ function App() {
                     </Provider></div>}/>
                     <Route path="/app/search" element={<div className="glowny"><Provider store={store}><LeftSide/><SearchScreen/>
                     </Provider></div>}/>
-                    <Route path="/app/message" element={<div className="glowny"><Provider store={store}><Message/><SearchScreen/>
+                    <Route path="/app/message" element={<div className="glowny"><Provider store={store}><LeftSide/><Message/>
                     </Provider></div>}/>
                     <Route path="/app/playList/:id" element={<div className="glowny"><Provider store={store}><LeftSide/><PlayListSingle/>
                     </Provider></div>}/>
