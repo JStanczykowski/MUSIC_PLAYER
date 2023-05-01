@@ -14,6 +14,8 @@ import store from './components/store/store';
 import SearchScreen from './components/searchscreen/SearchScreen';
 import PlayListSingle from './components/playlistsingle/PlayListSingle';
 import Message from "./components/message/Message";
+import InboxMess from "./components/inboxmess/InboxMess";
+import AdminPanel from "./components/adminpanel/AdminPanel";
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -41,7 +43,9 @@ function App() {
                     </Provider></div>}/>
                     <Route path="/app/playList/:id" element={<div className="glowny"><Provider store={store}><LeftSide/><PlayListSingle/>
                     </Provider></div>}/>
-
+                    <Route path="/app/message/:username" element={<div className="glowny"><Provider store={store}><LeftSide/><InboxMess/>
+                    </Provider></div>}/>
+                    <Route path="/admin" element={<div className="glowny"><AdminPanel/></div> }/>
                 </Routes>
 
         </BrowserRouter>

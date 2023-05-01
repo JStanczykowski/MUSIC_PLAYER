@@ -2,29 +2,30 @@ import React, { useState } from 'react';
 import './ReviewForm.css';
 import api from "../../api/axiosConfig";
 import avatar from "./avatar.png";
-const ReviewForm = ({  setReviews,number }) => {
+const ReviewForm = ({ reviews, setReviews, number }) => {
     const [comment, setComment] = useState('');
     const [rating, setRating] = useState('');
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(`Comment: ${comment}`);
 
         try {
             const response = await api.post('/api/v1/reviews', { reviewBody:comment,number:number },
                 {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
-                    } });
+                    }
+                });
             console.log('Komentarz został dodany!');
-            const updatedReviews =reviews => [...reviews, {body:comment}];
 
-            setReviews( updatedReviews);
+
+            setComment('');
+            setRating('');
+            setReviews([...reviews, response.data]);
         } catch (error) {
             console.log('Wystąpił błąd podczas dodawania komentarza:', error);
         }
-
     }
-
 return (
 
 
@@ -97,7 +98,7 @@ return (
             </div>
             <div className="button-container">
                 <button type="submit">Add</button>
-                <button type="clear">Clear</button>
+                <button type="clear"  onClick={() => {setComment(''); setRating('')}}>Clear</button>
             </div>
         </form>
     </div>

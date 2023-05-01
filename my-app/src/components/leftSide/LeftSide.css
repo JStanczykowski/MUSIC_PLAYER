@@ -51,7 +51,13 @@
     margin-top: 2px;
     border-bottom: 1px solid #fff;
 }
+.liX:hover{
+    font-size:26px;
+    font-weight: bold;
+    transition: font-size 0.3s ease-out;
+    border-bottom: 2px solid #fff;
 
+}
 .player {
     display: flex;
     flex-direction: column;

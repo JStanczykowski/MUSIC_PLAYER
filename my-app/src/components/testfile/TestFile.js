@@ -45,11 +45,12 @@ function TestFile() {
                 <div className="content">
                     <img src={img} alt="xd" className="imgStyle" />
                     <div className="details">
-                        <h1>{title} xd</h1>
+                        <h1>{title}</h1>
                         <p>{artist}</p>
                     </div>
+
                 </div>
-                <ReviewForm setReviews={setReviews} number={number} />
+            <div className="reviewFormL">    <ReviewForm setReviews={setReviews} number={number} /></div>
                 <div className="review-comments-wrapper">
                     <div className="comments">
                         {mus && Array.isArray(mus.reviewIds) &&

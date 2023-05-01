@@ -73,19 +73,19 @@ function MidSide() {
         const audioS =song;
         const songTitle = title;
         const artistName = artist;
-        const LogoSrc = require(`../../musicElement/png/${song}.png`);
-         dispatch(playTrack(songTitle,artistName,audioS,LogoSrc));
+        const image = require(`../../musicElement/png/${song}.png`);
+         dispatch(playTrack(songTitle,artistName,audioS,image));
 
-        setNewAudio({
-            audioS: audioS,
-            songTitle: songTitle,
-            artistName: artistName,
-
-        });
-
-        setShowLogoMusic({
-            LogoSrc: LogoSrc,
-        });
+        // setNewAudio({
+        //     audioS: audioS,
+        //     songTitle: songTitle,
+        //     artistName: artistName,
+        //
+        // });
+        //
+        // setShowLogoMusic({
+        //     LogoSrc: image,
+        // });
 
     }
 

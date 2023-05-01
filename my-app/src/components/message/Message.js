@@ -5,12 +5,15 @@ import store from '../store/store';
 import { Provider } from 'react-redux';
 import jwt_decode from "jwt-decode";
 import {Alert, AlertTitle} from "@mui/material";
+import {useNavigate} from "react-router-dom";
+import ProfileComponent from "../profilecomponent/ProfileComponent";
 const Message=(props)=>{
     const [formValues, setFormValues] = useState({title: '', message: ''});
     const token = localStorage.getItem('accessToken');
     const [isSend, setIsSend] = useState(false)
     const decodedToken = jwt_decode(token);
     const username = decodedToken.sub;
+    const navigate = useNavigate();
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -50,10 +53,22 @@ const Message=(props)=>{
         }
         return () => clearTimeout(timeout);
     }, [isSend]);
+    const mess = async (event)=>{
+        navigate('/app/message');
+    }
+    const inbox = async (event)=>{
+        navigate(`/app/message/${username}`);
+    }
     return(
         <Provider store={store}>
             <div className="fullContainer">
                 <div className="xd">
+                    <ProfileComponent name={username}/>
+                    <div>
+                    <button type="button" className="btn btn-outline-primary btn-lg" onClick={mess}>
+                        Send message</button>
+                    <button type="button" className="btn btn-outline-primary btn-lg" onClick={inbox}>
+                        The inbox</button></div>
                     <div className="messageForm">
                         {isSend &&(    <Alert severity="success">
                             <AlertTitle>Success</AlertTitle>

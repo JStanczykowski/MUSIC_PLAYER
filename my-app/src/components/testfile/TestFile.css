@@ -10,16 +10,18 @@
 }
 .review-comments-wrapper {
     display: flex;
+
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin-top: 10px; /* Dostosuj wartość, aby uzyskać odpowiedni odstęp */
+
+    /*margin-top: 10px; !* Dostosuj wartość, aby uzyskać odpowiedni odstęp *!*/
     height: calc(100% - 20vh); /* Dostosuj wartość, aby uzyskać odpowiedni odstęp */
 }
 .wrapper {
     background-color: rgb(221, 127, 211);
     width: 100vw;
-    height: 100%;
+    height: 89vh;
     margin-left: 3%;
     display: flex;
     flex-direction: column;
@@ -32,9 +34,10 @@
 }
 
 .imgStyle {
-    max-width: 100%;
+    max-width: 90%;
     margin-top: 10vh;
     text-align: center;
+    margin-left: 7%;
 }
 
 .details {
@@ -42,8 +45,8 @@
 }
 
 .content {
-    position: relative;
-    top: 7%;
+    position:relative;
+    top: 14%;
 }
 
 h1 {
@@ -56,13 +59,7 @@ p {
     margin: 0;
 }
 
-.comments {
-    text-align: center;
-    margin-top: 230px;
-    width: 80%;
-    bottom: -2%;
 
-}
 
 h2 {
     font-size: 20px;
@@ -73,17 +70,34 @@ h2 {
     margin-top: 50px;
     width: 80%;
 }
+.reviewFormL{
+    margin-top: 5%;
+    margin-right: 35%;
+}
+.comments {
+    text-align: center;
+    width: 80%;
+    bottom: -2%;
+    position: relative;
+    height: 80vh;
+    margin-top: 25%;
+
+}
 .review-body {
+
+    top: 70%;
+
+    transform: translate(-50%, -50%);
     display: flex;
     align-items: flex-start;
-
+    margin-bottom: 10px;
     border:2px solid rgb(71,44,68);
     background-color: rgb(221, 127, 211);
     width: 25vw;
-    margin-left: 10%;
+    margin-left: 25%;
     height: auto;
     border-radius: 10px;
-    margin-bottom: 20px;
+
     padding: 10px;
 
 }

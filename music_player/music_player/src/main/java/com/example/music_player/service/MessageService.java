@@ -16,4 +16,5 @@ public class MessageService {
     MessageRepository messageRepository;
 
     public List<Message> findAllMess() {return messageRepository.findAll();}
+    public List<Message> findMessByUsername(String username) {return messageRepository.findByUsername(username);}
 }

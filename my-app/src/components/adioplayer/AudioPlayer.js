@@ -10,13 +10,17 @@ import imgSrc from "./img.png";
 const AudioPlayer = () => {
     const dispatch = useDispatch();
     const audioPl = useRef(null);
-    const [isPlaying, setIsPlaying] = useState(false);
+    const audioFile = useState('');
     const [audioObj, setAudioObj] = useState(null);
-    const { audio: audioState } = useSelector(state => state);
-
+    const { audio: audioState } = useSelector((state) => state);
+    const isPlaying = useSelector(state => state.player && state.player.isPlaying);
+    const trackName = useSelector(state => state.player && state.player.trackName);
+    const artistName = useSelector(state => state.player && state.player.artistName);
+    const audioS = useSelector(state => state.player && state.player.audioS);
+    const image = useSelector(state => state.player && state.player.image);
     useEffect(() => {
-        if (store.getState().audioS) {
-            const audio = new Audio(require(`../../musicElement/mp3/${store.getState().audioS}.mp3`));
+        if (audioS) {
+            const audio = new Audio(require(`../../musicElement/mp3/${audioS}.mp3`));
             setAudioObj(audio);
 
             // Set duration when audio file is loaded
@@ -27,27 +31,24 @@ const AudioPlayer = () => {
                 });
             });
         }
-    }, [store.getState().audioS]);
+    }, [audioS]);
 
     const currentTime = audioState ? audioState.currentTime : 0;
     const duration = audioObj ? audioObj.duration : 0;
 
     const handlePlay = () => {
-        setIsPlaying(true);
-        dispatch(playTrack(store.getState().trackName, store.getState().artistName, store.getState().audioS,store.getState().image));
+        dispatch(playTrack(trackName, artistName,audioS, image));
         if (audioObj) {
             audioObj.play();
         }
     };
 
     const handlePause = () => {
-        setIsPlaying(false);
-        dispatch(pauseTrack());
+        dispatch(pauseTrack(trackName, artistName, audioS, image));
         audioObj.pause();
     };
 
     const handleStop = () => {
-        setIsPlaying(false);
         dispatch(stopTrack());
         audioObj.pause();
         audioObj.currentTime = 0;
@@ -81,12 +82,11 @@ const AudioPlayer = () => {
     }, [audioState]);
 
     const progressBarWidth = `${(currentTime / duration) * 100}%`;
-
     return (
         <div className="audio-player">
             <div className="song-info">
-                <h4 className="song-title">{store.getState().artistName}</h4>
-                <p className="artist-name">{store.getState().trackName}</p>
+                <h4 className="song-title">{artistName}</h4>
+                <p className="artist-name">{trackName}</p>
             </div>
             <div className="bar">
                 <div className="controls">
@@ -111,7 +111,7 @@ const AudioPlayer = () => {
             </div>
             {audioObj && (
                 <ReactAudioPlayer
-                    src={require(`../../musicElement/mp3/${store.getState().audioS}.mp3`)}
+                    src={require(`../../musicElement/mp3/${audioS}.mp3`)}
 
                     onEnded={handleStop}
                     onPlay={handlePlay}
@@ -131,7 +131,7 @@ const AudioPlayer = () => {
                 />
             )}
             <div className="muza">
-                <img src={store.getState().image} alt="xd" className="logomuza" />
+                <img src={image} alt="xd" className="logomuza" />
             </div>
         </div>
     );

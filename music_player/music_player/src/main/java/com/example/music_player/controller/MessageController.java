@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -27,5 +28,13 @@ public class MessageController {
 
                  Message message= new Message(payload.get("username"),payload.get("title"),payload.get("messageBody"));
                 return messageRepository.save(message);
+            }
+
+            @PreAuthorize("hasAnyRole('USER','ADMIN','MODER')")
+            @GetMapping("/{username}")
+            @CrossOrigin(origins = "*", allowedHeaders = "*")
+            public List<Message> getMessageByUsername(@PathVariable String username){
+                return messageService.findMessByUsername(username);
+
             }
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import jwt_decode from 'jwt-decode';
 import jsf from "./JSIFY.png";
 function Login({ setIsLoggedIn }) {
     const [username, setUsername] = useState('');
@@ -24,9 +25,25 @@ function Login({ setIsLoggedIn }) {
 
             if (response.ok) {
                 const data = await response.json();
+                const admin = ['ROLE_ADMIN'];
                 localStorage.setItem('accessToken', data.accessToken);
-                setIsLoggedIn(true);
-                navigate('/app');
+                const token = localStorage.getItem('accessToken');
+                const decodedToken = jwt_decode(data.accessToken);
+                if (data.roles && Array.isArray(data.roles)) {
+                        if(admin.every(role => data.roles.includes(role))){
+                            console.log("zgadza sie")
+                            setIsLoggedIn(true);
+                            navigate('/admin');
+                        }
+                    else{
+                            setIsLoggedIn(true);
+                            navigate('/app');
+                        }
+
+
+                }
+
+
             } else {
                 console.log('Login failed.');
             }

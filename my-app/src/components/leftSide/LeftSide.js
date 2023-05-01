@@ -21,13 +21,17 @@ function LeftSide  (props){
         );
     }
     const app = async (event)=>{
+
         navigate('/app');
+
     }
     const playlist = async (event)=>{
         navigate('/app/playlist');
+
     }
     const search = async (event)=>{
         navigate('/app/search');
+
     }
 
     return(

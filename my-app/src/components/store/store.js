@@ -1,17 +1,18 @@
 import { createStore } from 'redux';
 
+const savedIsPlaying = localStorage.getItem('isPlaying') === 'false';
+
 const initialState = {
-    isPlaying: false,
+    isPlaying: savedIsPlaying,
     trackName: '',
     artistName: '',
     audioS: '',
-    image:''
+    image: ''
 };
 
-export const playTrack = (trackName, artistName,audioS,image) => ({
-
+export const playTrack = (trackName, artistName, audioS, image) => ({
     type: 'PLAY_TRACK',
-    payload: { trackName, artistName,audioS,image }
+    payload: { trackName, artistName, audioS, image }
 });
 
 export const pauseTrack = () => ({
@@ -33,18 +34,26 @@ const playerReducer = (state = initialState, action) => {
                 audioS: action.payload.audioS,
                 image: action.payload.image
             };
+
         case 'PAUSE_TRACK':
             return {
                 ...state,
                 isPlaying: false
             };
+
         case 'STOP_TRACK':
             return initialState;
+
         default:
             return state;
     }
 };
 
 const store = createStore(playerReducer);
+
+store.subscribe(() => {
+    const isPlaying = store.getState().isPlaying;
+    localStorage.setItem('isPlaying', isPlaying.toString());
+});
 
 export default store;
