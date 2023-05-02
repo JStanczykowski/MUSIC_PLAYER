@@ -10,6 +10,7 @@ import AddPlayList from "../addPlayList/AddPlayList";
 import  nuta from "../../musicElement/png/333.png"
 import {FaHeart, FaPlayCircle,FaTrashAlt} from "react-icons/fa";
 import {Alert, AlertTitle} from "@mui/material";
+import ProfileComponent from "../profilecomponent/ProfileComponent";
 function PlayList(props) {
     const navigate = useNavigate();
     const [playlistApi, setPlayList] = useState([]);
@@ -79,9 +80,10 @@ function PlayList(props) {
         }
         return () => clearTimeout(timeout);
     }, [isDeleted]);
-    return (
-        <Provider store={store}>
-            <div className="fullContainer">
+
+    return(
+
+        <div className="fullContainer"><ProfileComponent name={username}/>
                 <div className="xd">
                     <div className="card-body">
                         {isCreate ? (
@@ -118,11 +120,11 @@ function PlayList(props) {
                     </div>
                 </div>
                 <div className="player">
-                    <AudioPlayer />
+
                 </div>
 
             </div>
-        </Provider>
+
 );
 }
 

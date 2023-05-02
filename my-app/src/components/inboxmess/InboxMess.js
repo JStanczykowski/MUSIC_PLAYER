@@ -7,6 +7,7 @@ import jwt_decode from "jwt-decode";
 import {Alert, AlertTitle} from "@mui/material";
 import {useNavigate, useParams} from "react-router-dom";
 import api from "../../api/axiosConfig";
+import ProfileComponent from "../profilecomponent/ProfileComponent";
 const InboxMess=(props)=>{
     const [formValues, setFormValues] = useState({title: '', message: ''});
     const token = localStorage.getItem('accessToken');
@@ -37,9 +38,10 @@ const InboxMess=(props)=>{
     useEffect(() => {
         getMessage();
     }, []);
+
     return(
-        <Provider store={store}>
-            <div className="fullContainer">
+
+        <div className="fullContainer"><ProfileComponent name={username}/>
                 <div className="xd">
                     <div>
                     <button type="button" className="btn btn-outline-primary btn-lg" onClick={mess}>
@@ -54,12 +56,11 @@ const InboxMess=(props)=>{
                             ))}
                     </div>
                     </div>
-                </div>
-                <div className="player">
-                    <AudioPlayer />
-                </div>
 
-        </Provider>
+                <div className="player">
+
+                </div>
+        </div>
     )
 }
 

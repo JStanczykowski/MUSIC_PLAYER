@@ -5,11 +5,14 @@ import { Provider } from 'react-redux';
 import store from "../store/store";
 import AudioPlayer from "../adioplayer/AudioPlayer";
 import api from "../../api/axiosConfig";
-
+import { useSelector } from 'react-redux';
+import ProfileComponent from "../profilecomponent/ProfileComponent";
+import jwt_decode from "jwt-decode";
 const SearchScreen =()=>{
+    const audioPlayerRef = store.getState().audioPlayerRef;
     const [data, setData] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
-
+    console.log(audioPlayerRef);
     const getMusic = async () => {
         try {
             const response = await api.get("/api/v1/music",{
@@ -31,11 +34,14 @@ const SearchScreen =()=>{
     useEffect(() => {
         getMusic();
     }, [searchQuery]);
-
+    const token = localStorage.getItem('accessToken');
+    const decodedToken = jwt_decode(token);
+    const username = decodedToken.sub;
     return(
-        <Provider store={store}>
-            <div className="fullContainer">
+
+            <div className="fullContainer"><ProfileComponent name={username}/>
                 <div className="xd">
+
                     <div className="search">
                         <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
                     </div>
@@ -61,10 +67,10 @@ const SearchScreen =()=>{
                     </div>
                 </div>
                 <div className="player">
-                    <AudioPlayer />
+                    {/*<AudioPlayer ref={audioPlayerRef}/>*/}
                 </div>
             </div>
-        </Provider>
+
     )
 };
 

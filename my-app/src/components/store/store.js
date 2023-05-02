@@ -1,20 +1,31 @@
 import { createStore } from 'redux';
 
-const savedIsPlaying = localStorage.getItem('isPlaying') === 'false';
+const savedIsPlaying = localStorage.getItem('isPlaying') === 'true';
 
 const initialState = {
     isPlaying: savedIsPlaying,
     trackName: '',
     artistName: '',
     audioS: '',
-    image: ''
+    image: '',
+    duration:0,
+    currentTime:1,
+    audioElement: null,
+    audioPlayerRef: null,
 };
+export const setAudioElement = (audioElement) => ({
+    type: 'SET_AUDIO_ELEMENT',
+    payload: audioElement,
+});
 
 export const playTrack = (trackName, artistName, audioS, image) => ({
     type: 'PLAY_TRACK',
     payload: { trackName, artistName, audioS, image }
 });
-
+export const setAudioPlayerRef = (ref) => ({
+    type: 'SET_AUDIO_PLAYER_REF',
+    payload: ref,
+});
 export const pauseTrack = () => ({
     type: 'PAUSE_TRACK'
 });
@@ -22,7 +33,15 @@ export const pauseTrack = () => ({
 export const stopTrack = () => ({
     type: 'STOP_TRACK'
 });
+export const setCurrentTime = (currentTime) => ({
+    type: 'SET_CURRENT_TIME',
+    payload: currentTime
+});
 
+export const setDuration = (duration) => ({
+    type: 'SET_DURATION',
+    payload: duration
+});
 const playerReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'PLAY_TRACK':
@@ -34,13 +53,18 @@ const playerReducer = (state = initialState, action) => {
                 audioS: action.payload.audioS,
                 image: action.payload.image
             };
-
+        case 'SET_AUDIO_PLAYER_REF':
+            return { ...state, audioPlayerRef: action.payload };
         case 'PAUSE_TRACK':
             return {
                 ...state,
                 isPlaying: false
             };
-
+        case 'SET_AUDIO_ELEMENT':
+            return {
+                ...state,
+                audioElement: action.payload,
+            };
         case 'STOP_TRACK':
             return initialState;
 

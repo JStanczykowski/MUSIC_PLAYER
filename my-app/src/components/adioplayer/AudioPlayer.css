@@ -82,7 +82,7 @@
 }
 
 .current-time {
-    margin-left: 9%;
+    margin-left: 8%;
     display: flex;
     align-items: center;
 
@@ -90,9 +90,11 @@
 }
 
 .duration {
-
-    margin-left: 73%;
-    margin-top: 20px;
+    display: flex;
+    margin-left: 74%;
+    position: relative;
+    top: -18px;
+    align-items: center;
     font-size: 14px;
 }
 
@@ -149,6 +151,17 @@
     display: inline;
     width: 80%;
     margin-bottom: -1%;
+}
+.progress-bar-fill:after{
+    content: "";
+    display: block;
+    position: absolute;
+    top: -2px;
+    left: 100%;
+    width: 7px;
+    height: 7px;
+    background-color: darkviolet;
+    border-radius: 50%;
 }
 .progress-bar-fill {
     height: 100%;

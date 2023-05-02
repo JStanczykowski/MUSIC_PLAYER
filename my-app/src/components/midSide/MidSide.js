@@ -61,12 +61,12 @@ function MidSide() {
         getMusic();
     }, []);
 
-    function stopClick() {
-        return (
-            <AudioPlayer stopHehe/>
-        )
-    }
+    const [items, setItems] = useState([]);
 
+    function handleClickTwo(id) {
+        setItems(prevItems => [...prevItems, id]);
+        console.log(items);
+    }
     function handleClick(title, artist, song) {
 
         // const audioS = require(`../../musicElement/mp3/rogal.mp3`);
@@ -161,14 +161,14 @@ function MidSide() {
     }
 
     return (
-        <Provider store={store}>
+
         <div className="fullContainer">
             <div id="testfile-container"></div>
 
                 <div className="xd">
                     <ProfileComponent name={username}/>
                     <div className="card-body"   >
-                        {/*<LeftSide klik = {handleClick(newAudio.songTitle,newAudio.artistName,newAudio.audioSrc)}/>*/}
+
 
                         <table className="table mb-0">
                             <thead>
@@ -200,7 +200,7 @@ function MidSide() {
                                         </td>
                                         <td className="align-middle">
                                             <FaHeart onClick={() => {
-                                                handleClick(song.tytul, song.artysta, song.plik)
+                                                handleClickTwo(song)
                                             }} className="button"/>
                                         </td>
                                         {/*<FaPlusCircle className="button" />*/}
@@ -225,15 +225,15 @@ function MidSide() {
 
             <div className="player" >
                 {/*{showAudioPlayer && (*/}
-                <AudioPlayer
-                    // audioS={newAudio.audioS}
-                    // trackName={newAudio.songTitle}
-                    // artistName={newAudio.artistName}
-                    // image={showLogoMusic.LogoSrc}
-                />
+                {/*<AudioPlayer*/}
+                {/*    // audioS={newAudio.audioS}*/}
+                {/*    // trackName={newAudio.songTitle}*/}
+                {/*    // artistName={newAudio.artistName}*/}
+                {/*    // image={showLogoMusic.LogoSrc}*/}
+                {/*/>*/}
             {/*)}*/}
             </div>
-        </div> </Provider>
+        </div>
     );
 }
     export default MidSide;

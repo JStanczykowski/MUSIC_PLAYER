@@ -16,39 +16,44 @@ import PlayListSingle from './components/playlistsingle/PlayListSingle';
 import Message from "./components/message/Message";
 import InboxMess from "./components/inboxmess/InboxMess";
 import AdminPanel from "./components/adminpanel/AdminPanel";
+import profileComponent from "./components/profilecomponent/ProfileComponent";
+import { createStore } from 'redux';
+
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     return (
-        <BrowserRouter>
-
+        <div>
+            <Provider store={store}><div>
+                <BrowserRouter>
                 <Routes>
                     {isLoggedIn ? (
                         <>
                             <Route path="/app" element={<div className="glowny">
-                                <Provider store={store}>
-                                <LeftSide /><MidSide /></Provider></div>} />
+
+                                <LeftSide /><MidSide /></div>} />
                         </>
                     ) : (
                         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
                     )}
-                    <Route path="/app/reviews" element={<div className="glowny"> <Provider store={store}>
-                        <LeftSide/><Reviews/></Provider></div>}/>
+                    <Route path="/app/reviews" element={<div className="glowny">
+                        <LeftSide/><Reviews/></div>}/>
                     <Route path="/register" element={<Register/>}/>
-                    <Route path="/app/playList" element={<div className="glowny"><Provider store={store}><LeftSide/><PlayList/>
-                    </Provider></div>}/>
-                    <Route path="/app/search" element={<div className="glowny"><Provider store={store}><LeftSide/><SearchScreen/>
-                    </Provider></div>}/>
-                    <Route path="/app/message" element={<div className="glowny"><Provider store={store}><LeftSide/><Message/>
-                    </Provider></div>}/>
-                    <Route path="/app/playList/:id" element={<div className="glowny"><Provider store={store}><LeftSide/><PlayListSingle/>
-                    </Provider></div>}/>
-                    <Route path="/app/message/:username" element={<div className="glowny"><Provider store={store}><LeftSide/><InboxMess/>
-                    </Provider></div>}/>
+                    <Route path="/app/playList" element={<div className="glowny"><LeftSide/><PlayList/>
+                   </div>}/>
+                    <Route path="/app/search" element={<div className="glowny"><LeftSide/><SearchScreen/>
+                    </div>}/>
+                    <Route path="/app/message" element={<div className="glowny"><LeftSide/><Message/>
+                 </div>}/>
+                    <Route path="/app/playList/:id" element={<div className="glowny"><LeftSide/><PlayListSingle/>
+                  </div>}/>
+                    <Route path="/app/message/:username" element={<div className="glowny"><LeftSide/><InboxMess/>
+                    </div>}/>
                     <Route path="/admin" element={<div className="glowny"><AdminPanel/></div> }/>
-                </Routes>
-
-        </BrowserRouter>
+                </Routes></BrowserRouter></div>
+                {isLoggedIn && <AudioPlayer /> }
+            </Provider>
+        </div>
     );
 }
 

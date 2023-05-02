@@ -8,6 +8,8 @@ import AudioPlayer from "../adioplayer/AudioPlayer";
 
 import { Provider } from 'react-redux';
 import store from "../store/store";
+import ProfileComponent from "../profilecomponent/ProfileComponent";
+import jwt_decode from "jwt-decode";
 function TestFile() {
     const location = useLocation()
     const title = location.state.title.X;
@@ -15,7 +17,7 @@ function TestFile() {
     const artist = location.state.artist.X2;
     const img = location.state.img.LogoSrc;
 
-    console.log(img,title,artist,number);
+
     const [mus, setMus] = useState();
     const [reviews, setReviews] = useState([]);
 
@@ -38,10 +40,13 @@ function TestFile() {
     useEffect(() => {
         getMusicData();
     }, []);
-
+    const token = localStorage.getItem('accessToken');
+    const decodedToken = jwt_decode(token);
+    const username = decodedToken.sub;
     return (
-        <Provider store={store}>
+
             <div className="wrapper">
+                {/*<ProfileComponent name={username}/>*/}
                 <div className="content">
                     <img src={img} alt="xd" className="imgStyle" />
                     <div className="details">
@@ -78,7 +83,7 @@ function TestFile() {
                     </div>
                 </div>
             </div>
-        </Provider>
+
     );
 }
 

@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom';
 import img from "../leftSide/JSIFY.PNG";
 import {FaHeart, FaPlayCircle} from "react-icons/fa";
 import { useLocation } from 'react-router-dom';
+import ProfileComponent from "../profilecomponent/ProfileComponent";
 function PlayListSingle(props) {
     const navigate = useNavigate();
     const [playlistApi, setPlayList] = useState([]);
@@ -42,9 +43,10 @@ function PlayListSingle(props) {
     }
     const location = useLocation();
     const { nazwa } = location.state;
-    return (
-        <Provider store={store}>
-            <div className="fullContainer">
+
+    return(
+
+        <div className="fullContainer"><ProfileComponent name={username}/>
                 <div className="xd">
                     <h1>{nazwa}</h1>
                     <p onClick={back}>Back</p>
@@ -78,10 +80,10 @@ function PlayListSingle(props) {
                         </table>
                     </div>
                     <div className="player">
-                        <AudioPlayer />
+
                     </div>
                 </div></div>
-        </Provider>
+
     );
 }
 

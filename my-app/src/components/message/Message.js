@@ -59,11 +59,12 @@ const Message=(props)=>{
     const inbox = async (event)=>{
         navigate(`/app/message/${username}`);
     }
+
     return(
-        <Provider store={store}>
-            <div className="fullContainer">
+
+        <div className="fullContainer"><ProfileComponent name={username}/>
                 <div className="xd">
-                    <ProfileComponent name={username}/>
+
                     <div>
                     <button type="button" className="btn btn-outline-primary btn-lg" onClick={mess}>
                         Send message</button>
@@ -104,11 +105,11 @@ const Message=(props)=>{
                     </div>
                 </div>
                 <div className="player">
-                    <AudioPlayer />
+
                 </div>
 
             </div>
-        </Provider>
+
     )
 }
 
