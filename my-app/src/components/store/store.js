@@ -6,6 +6,7 @@ const initialState = {
     isPlaying: savedIsPlaying,
     trackName: '',
     artistName: '',
+    playlist:[],
     audioS: '',
     image: '',
     duration:0,
@@ -17,7 +18,10 @@ export const setAudioElement = (audioElement) => ({
     type: 'SET_AUDIO_ELEMENT',
     payload: audioElement,
 });
-
+export const setPlayList = (playlist) => ({
+    type: 'SET_PLAYLIST',
+    payload:playlist,
+})
 export const playTrack = (trackName, artistName, audioS, image) => ({
     type: 'PLAY_TRACK',
     payload: { trackName, artistName, audioS, image }
@@ -59,6 +63,11 @@ const playerReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isPlaying: false
+            };
+        case 'SET_PLAYLIST':
+            return {
+                ...state,
+                playlist: [...state.playlist, action.payload]
             };
         case 'SET_AUDIO_ELEMENT':
             return {

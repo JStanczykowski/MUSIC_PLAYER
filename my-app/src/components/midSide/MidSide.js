@@ -10,7 +10,7 @@ import { useLocation } from 'react-router-dom'
 import TestFile from "../testfile/TestFile";
 import LeftSide from "../leftSide/LeftSide";
 import {useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { connect } from 'react-redux';
 import store, {playTrack} from "../store/store";
 import { Provider } from 'react-redux';
@@ -61,11 +61,12 @@ function MidSide() {
         getMusic();
     }, []);
 
-    const [items, setItems] = useState([]);
 
+    const items = useSelector((state)=>state.playlist);
     function handleClickTwo(id) {
-        setItems(prevItems => [...prevItems, id]);
-        console.log(items);
+
+        dispatch({type: "SET_PLAYLIST",payload: id});
+        console.log(store.getState().playlist);
     }
     function handleClick(title, artist, song) {
 

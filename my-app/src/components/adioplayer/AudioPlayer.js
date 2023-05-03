@@ -10,7 +10,7 @@ import store, {
     setAudioElement,
     setDuration,
     setCurrentTime,
-    setAudioPlayerRef
+    setAudioPlayerRef, setPlayList
 } from '../store/store';
 
 
@@ -52,8 +52,15 @@ const AudioPlayer = (props) => {
             });
         }
     }, [store.getState().audioS,dispatch]);
+    const playlistList=useSelector((state)=>state.playlist)
+    const playNext=()=>{
+        if (audioObj) {
+            audioObj.pause();
+        }
+        const track = store.getState().playlist;
+        console.log(track[1].tytul,track[1].artysta);
 
-
+    }
     const handlePlay = () => {
         dispatch(playTrack(store.getState().trackName, store.getState().artistName,store.getState().audioS, store.getState().image));
         dispatch(setAudioPlayerRef(audioPlayerRef));
@@ -125,7 +132,7 @@ const AudioPlayer = (props) => {
                     <div className="play-button" onClick={isPlaying ? handlePause : handlePlay}>
                         {isPlaying ? <FaPause /> : <FaPlay />}
                     </div>
-                    <div className="next-button">
+                    <div className="next-button"  onClick={playNext}>
                         <FaStepForward />
                     </div>
                 </div>

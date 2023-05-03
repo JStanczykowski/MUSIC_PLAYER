@@ -10,6 +10,9 @@ import AddPlayList from "../addPlayList/AddPlayList";
 import  nuta from "../../musicElement/png/333.png"
 import {FaHeart, FaPlayCircle,FaTrashAlt} from "react-icons/fa";
 import {Alert, AlertTitle} from "@mui/material";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 import ProfileComponent from "../profilecomponent/ProfileComponent";
 function PlayList(props) {
     const navigate = useNavigate();
@@ -80,19 +83,83 @@ function PlayList(props) {
         }
         return () => clearTimeout(timeout);
     }, [isDeleted]);
+    const [show, setShow] = useState(false);
+    const [name, setName] = useState('');
 
+    const CreatePlayList = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/api/v1/playlist', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                },
+                body: JSON.stringify({
+                    name: name,
+                    username: username,
+
+                }),
+            });
+
+            if (response.ok) {
+
+                setCreate(true);
+
+            } else {
+
+                console.log('Error create playlist');
+            }
+        } catch (error) {
+            console.log(await error.text());
+        }
+    };
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     return(
 
         <div className="fullContainer"><ProfileComponent name={username}/>
                 <div className="xd">
+                    <div>
+                        <Button variant="primary" onClick={handleShow}>
+                            Create new PlayList
+                        </Button>
+
+                        <Modal show={show} onHide={handleClose}>
+
+                            <Modal.Header closeButton>
+                                <Modal.Title>Form for creating a new playlist</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Form onSubmit={CreatePlayList}>
+                                    <Form.Group className="mb-2" controlId="exampleForm.ControlInput1">
+                                        <Form.Label>Name the PlayList</Form.Label>
+                                        <Form.Control
+                                            className="contentClassName"
+                                            type="text" placeholder="Enter name"
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
+                                            autoFocus/>
+                                        <small id="emailHelp" className="form-text text-muted">Make sure the name means something to you.</small>
+                                        <Button variant="primary" type="submit" >
+                                            Submit
+                                        </Button>
+                                    </Form.Group> </Form>
+
+                            </Modal.Body>
+                            <Modal.Footer>
+
+                            </Modal.Footer>
+                        </Modal>
+                    </div>
                     <div className="card-body">
-                        {isCreate ? (
-                            <button type="button" className="btn btn-primary" onClick={create}>
-                                Create new PlayList
-                            </button>
-                        ) : (
-                            <AddPlayList setCreate={setCreate} />
-                        )}
+
+                        {/*{isCreate ? (*/}
+                        {/*    <button type="button" className="btn btn-primary" onClick={create}>*/}
+                        {/*        Create new PlayList*/}
+                        {/*    </button>*/}
+                        {/*) : (*/}
+                        {/*    <AddPlayList setCreate={setCreate} />*/}
+                        {/*)}*/}
                     </div>
                     {isDeleted &&(    <Alert severity="success">
                         <AlertTitle>Success</AlertTitle>
