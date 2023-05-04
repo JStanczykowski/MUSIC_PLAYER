@@ -63,6 +63,7 @@ public List<music> getMusicIdsByPlayListId(@PathVariable String playlistId) {
                 Aggregation.project()
                         .and("songs.tytul").as("tytul")
                         .and("songs.artysta").as("artysta")
+                        .and("songs.plik").as("plik")
                         .and("songs.zdjecie").as("zdjecie")
         );
         AggregationResults<music> results = mongoTemplate.aggregate(aggregation, "playlist", music.class);

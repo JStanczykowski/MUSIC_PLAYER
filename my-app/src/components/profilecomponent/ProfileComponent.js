@@ -6,7 +6,8 @@ import Dropdown from "react-bootstrap/Dropdown";
 import prof from "../../musicElement/png/img_1.png";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import {useNavigate} from "react-router-dom";
-import {Alert, AlertTitle} from "@mui/material";
+import {Alert, AlertTitle, Modal} from "@mui/material";
+import ProfileInfo from "../profileinfo/ProfileInfo";
 const ProfileComponent =(props)=>{
     const navigate = useNavigate();
     const logOut = async (event)=>{
@@ -21,6 +22,12 @@ const ProfileComponent =(props)=>{
 
 
     }
+    const profile = async (event)=>{
+
+        navigate(`/app/${props.name}`);
+
+
+    }
 
     return(
         <div className="profile">
@@ -30,7 +37,9 @@ const ProfileComponent =(props)=>{
                 menuVariant="dark"
                 title={props.name}
             className="navdropProf">
-                <NavDropdown.Item href="#action/3.1">Profil</NavDropdown.Item>
+                <NavDropdown.Item onClick={()=>{
+                    profile()
+                }}>Profil</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">
                     Ustawienia
                 </NavDropdown.Item>

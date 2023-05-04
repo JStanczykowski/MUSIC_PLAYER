@@ -18,7 +18,7 @@ import InboxMess from "./components/inboxmess/InboxMess";
 import AdminPanel from "./components/adminpanel/AdminPanel";
 import profileComponent from "./components/profilecomponent/ProfileComponent";
 import { createStore } from 'redux';
-
+import ProfileInfo from "./components/profileinfo/ProfileInfo";
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -45,6 +45,8 @@ function App() {
                     </div>}/>
                     <Route path="/app/message" element={<div className="glowny"><LeftSide/><Message/>
                  </div>}/>
+                    <Route path="/app/:username" element={<div className="glowny"><LeftSide/><ProfileInfo/>
+                    </div>}/>
                     <Route path="/app/playList/:id" element={<div className="glowny"><LeftSide/><PlayListSingle/>
                   </div>}/>
                     <Route path="/app/message/:username" element={<div className="glowny"><LeftSide/><InboxMess/>

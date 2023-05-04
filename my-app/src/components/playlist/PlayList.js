@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './PlayList.css';
 import { useNavigate } from 'react-router-dom';
-import store from '../store/store';
-import { Provider } from 'react-redux';
+import store, {playTrack} from '../store/store';
+import {Provider, useDispatch, useSelector} from 'react-redux';
 import AudioPlayer from '../adioplayer/AudioPlayer';
 import jwt_decode from 'jwt-decode';
 import api from '../../api/axiosConfig';
@@ -85,7 +85,38 @@ function PlayList(props) {
     }, [isDeleted]);
     const [show, setShow] = useState(false);
     const [name, setName] = useState('');
-
+    const [playlist, setPlayListPlay] = useState([]);
+    const dispatch = useDispatch();
+    const index = useSelector((state)=>state.index);
+    const table = useSelector((state)=>state.playlist);
+    useEffect(() => {
+        try {
+            const image = require(`../../musicElement/png/${table[index].plik}.png`);
+            dispatch(playTrack(table[index].tytul, table[index].artysta, table[index].plik, image));
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }, [table]);
+    const playPlayList = async (id)=> {
+        try {
+            const response = await api.get(`/api/v1/playlist/${id}/musicIds`, {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                }
+            });
+            console.log(response.data);
+            dispatch({
+                type: 'PLAYLIST_TO_PLAYLIST',
+                payload: {
+                    index: index,
+                    element: response.data
+                }
+            });
+        } catch (error) {
+            console.log('Error:', error);
+        }
+    };
     const CreatePlayList = async () => {
         try {
             const response = await fetch('http://localhost:8080/api/v1/playlist', {
@@ -171,7 +202,8 @@ function PlayList(props) {
                             <div className="card" >
                                 <img class="card-img-top" src={nuta} />
                                 <span className="play-btn">
-                                <FaPlayCircle className="play-button" />
+                                <FaPlayCircle className="play-button"
+                                onClick={()=>playPlayList(plalist.id)}/>
                                 <FaTrashAlt
                                     className="button-del"
                                     onClick={() => deletePlayList(plalist.id)}

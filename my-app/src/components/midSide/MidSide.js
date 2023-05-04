@@ -62,33 +62,40 @@ function MidSide() {
     }, []);
 
 
-    const items = useSelector((state)=>state.playlist);
     function handleClickTwo(id) {
 
         dispatch({type: "SET_PLAYLIST",payload: id});
         console.log(store.getState().playlist);
     }
-    function handleClick(title, artist, song) {
+    const table = useSelector((state)=>state.playlist);
+    const index = useSelector((state)=>state.index);
 
-        // const audioS = require(`../../musicElement/mp3/rogal.mp3`);
-        const audioS =song;
-        const songTitle = title;
-        const artistName = artist;
-        const image = require(`../../musicElement/png/${song}.png`);
-         dispatch(playTrack(songTitle,artistName,audioS,image));
-
-        // setNewAudio({
-        //     audioS: audioS,
-        //     songTitle: songTitle,
-        //     artistName: artistName,
-        //
-        // });
-        //
-        // setShowLogoMusic({
-        //     LogoSrc: image,
-        // });
-
+    function handleClick(id) {
+        try {
+            dispatch({
+                type: 'CURRENT_PLAYLIST',
+                payload: {
+                    index: index,
+                    element: id
+                }
+            });
+            console.log(table);
+            console.log(index);
+        }
+        catch (error){
+            console.log(error);
+        }
     }
+
+    useEffect(() => {
+        try {
+            const image = require(`../../musicElement/png/${table[index].plik}.png`);
+            dispatch(playTrack(table[index].tytul, table[index].artysta, table[index].plik, image));
+        }
+        catch (err) {
+            console.log(err);
+        }
+        }, [table]);
 
     function srcImg(photo) {
         const LogoSrc = require(`../../musicElement/png/${photo}.png`);
@@ -196,7 +203,7 @@ function MidSide() {
                                         </td>
                                         <td className="align-middle">
                                             <FaPlayCircle onClick={() => {
-                                                handleClick(song.tytul, song.artysta, song.plik)
+                                                handleClick(song)
                                             }} className="button"/>
                                         </td>
                                         <td className="align-middle">

@@ -10,7 +10,7 @@ import store, {
     setAudioElement,
     setDuration,
     setCurrentTime,
-    setAudioPlayerRef, setPlayList
+    setAudioPlayerRef, setPlayList, setIndex
 } from '../store/store';
 
 
@@ -48,24 +48,63 @@ const AudioPlayer = (props) => {
 
                 setInterval(() => {
                 const currentCzas=formatTime(store.getState().audioElement.currentTime);
-                currentTimeEl.innerText=currentCzas;},1000);
+                currentTimeEl.innerText=currentCzas;
+                if(currentCzas==durationCzas){
+
+                    playNext();
+                }},1000);
             });
         }
     }, [store.getState().audioS,dispatch]);
-    const playlistList=useSelector((state)=>state.playlist)
-    const playNext=()=>{
-        if (audioObj) {
-            audioObj.pause();
-        }
-        const track = store.getState().playlist;
-        console.log(track[1].tytul,track[1].artysta);
+    const playlistList=useSelector((state)=>state.playlist);
+    const durationTime = useSelector((state)=>state.duration);
+    const currentTime = useSelector((state)=>state.currentTime);
 
+    const currentIndex = useSelector((state)=>state.index);
+    console.log(currentIndex);
+    const playNext=()=>{
+        try{
+        if (index+1 < table.length) {
+            dispatch(setIndex(currentIndex+1));
+            const image = require(`../../musicElement/png/${table[index+1].plik}.png`);
+            dispatch(playTrack(table[index+1].tytul, table[index+1].artysta, table[index+1].plik, image));
+        } else {
+            dispatch(setIndex(0));
+            const image = require(`../../musicElement/png/${table[0].plik}.png`);
+            dispatch(playTrack(table[0].tytul, table[0].artysta, table[0].plik, image));
+        }
+            }
+            catch (err){
+                console.log(err);
+            }
     }
+    const playPrev=()=>{
+        try{
+            if (index-1 >= 0) {
+                dispatch(setIndex(currentIndex-1));
+                const image = require(`../../musicElement/png/${table[index-1].plik}.png`);
+                dispatch(playTrack(table[index-1].tytul, table[index-1].artysta, table[index-1].plik, image));
+            } else {
+                dispatch(setIndex(table.length-1));
+                const image = require(`../../musicElement/png/${table[table.length-1].plik}.png`);
+                dispatch(playTrack(table[table.length-1].tytul, table[table.length-1].artysta, table[table.length-1].plik, image));
+            }
+        }
+        catch (err){
+            console.log(err);
+        }
+    }
+    const table = useSelector((state)=>state.playlist);
+    const index = useSelector((state)=>state.index);
+
     const handlePlay = () => {
-        dispatch(playTrack(store.getState().trackName, store.getState().artistName,store.getState().audioS, store.getState().image));
+
+        const image = require(`../../musicElement/png/${table[index].plik}.png`);
+        dispatch(playTrack(table[index].tytul, table[index].artysta, table[index].plik, image));
         dispatch(setAudioPlayerRef(audioPlayerRef));
         const audioObj = store.getState().audioElement;
         console.log(store.getState().audioElement.currentTime)
+
         if (audioObj) {
             audioObj.play();
         }
@@ -126,7 +165,8 @@ const AudioPlayer = (props) => {
             </div>
             <div className="bar">
                 <div className="controls">
-                    <div className="next-button">
+                    <div className="next-button"
+                         onClick={playPrev}>
                         <FaStepBackward />
                     </div>
                     <div className="play-button" onClick={isPlaying ? handlePause : handlePlay}>

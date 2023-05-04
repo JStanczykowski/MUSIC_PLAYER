@@ -4,6 +4,7 @@ const savedIsPlaying = localStorage.getItem('isPlaying') === 'true';
 
 const initialState = {
     isPlaying: savedIsPlaying,
+    index:0,
     trackName: '',
     artistName: '',
     playlist:[],
@@ -18,6 +19,10 @@ export const setAudioElement = (audioElement) => ({
     type: 'SET_AUDIO_ELEMENT',
     payload: audioElement,
 });
+export const setIndex = (index)=>({
+    type: 'SET_INDEX',
+    payload:index,
+})
 export const setPlayList = (playlist) => ({
     type: 'SET_PLAYLIST',
     payload:playlist,
@@ -59,6 +64,11 @@ const playerReducer = (state = initialState, action) => {
             };
         case 'SET_AUDIO_PLAYER_REF':
             return { ...state, audioPlayerRef: action.payload };
+        case 'SET_INDEX':
+            return {
+                ...state,
+                index:action.payload,
+            }
         case 'PAUSE_TRACK':
             return {
                 ...state,
@@ -68,6 +78,26 @@ const playerReducer = (state = initialState, action) => {
             return {
                 ...state,
                 playlist: [...state.playlist, action.payload]
+            };
+        case 'CURRENT_PLAYLIST':
+            const index = action.payload.index;
+            const newElement = action.payload.element;
+            const playlist = [...state.playlist];
+            playlist.splice(index, 0, newElement);
+            return {
+                ...state,
+                playlist: playlist
+            };
+        case 'PLAYLIST_TO_PLAYLIST':
+            const indexX = action.payload.index;
+            const newElements = Array.isArray(action.payload.element) ? action.payload.element : [action.payload.element];
+            const playlistT = [...state.playlist];
+            newElements.forEach((newElement, i) => {
+                playlistT.splice(indexX + i, 0, newElement);
+            });
+            return {
+                ...state,
+                playlist: playlistT
             };
         case 'SET_AUDIO_ELEMENT':
             return {
