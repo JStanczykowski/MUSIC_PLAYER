@@ -19,6 +19,7 @@ import AdminPanel from "./components/adminpanel/AdminPanel";
 import profileComponent from "./components/profilecomponent/ProfileComponent";
 import { createStore } from 'redux';
 import ProfileInfo from "./components/profileinfo/ProfileInfo";
+import Users from "./components/users/Users";
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -52,6 +53,7 @@ function App() {
                     <Route path="/app/message/:username" element={<div className="glowny"><LeftSide/><InboxMess/>
                     </div>}/>
                     <Route path="/admin" element={<div className="glowny"><AdminPanel/></div> }/>
+                    <Route path="/admin/users" element={<div className="glowny"><Users/></div> }/>
                 </Routes></BrowserRouter></div>
                 {isLoggedIn && <AudioPlayer /> }
             </Provider>

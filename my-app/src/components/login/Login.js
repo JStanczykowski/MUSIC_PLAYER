@@ -29,21 +29,21 @@ function Login({ setIsLoggedIn }) {
                 localStorage.setItem('accessToken', data.accessToken);
                 const token = localStorage.getItem('accessToken');
                 const decodedToken = jwt_decode(data.accessToken);
+                console.log(data)
                 if (data.roles && Array.isArray(data.roles)) {
-                        if(admin.every(role => data.roles.includes(role))){
-                            console.log("zgadza sie")
-                            setIsLoggedIn(true);
-                            navigate('/admin');
-                        }
-                    else{
+                    if (admin.every(role => data.roles.includes(role))) {
+                        console.log("zgadza sie")
+                        setIsLoggedIn(true);
+                        navigate('/admin');
+                    } else {
+                        if (data.active === false) {
+                            alert('Nie możesz się zalogować, ponieważ Twoje konto jest nieaktywne.');
+                        } else {
                             setIsLoggedIn(true);
                             navigate('/app');
                         }
-
-
+                    }
                 }
-
-
             } else {
                 console.log('Login failed.');
             }

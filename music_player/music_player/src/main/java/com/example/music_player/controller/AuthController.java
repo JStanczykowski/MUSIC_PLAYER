@@ -9,6 +9,7 @@ import com.example.music_player.repository.UserRepository;
 import com.example.music_player.service.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -41,8 +43,39 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+    @PreAuthorize("hasAnyRole( 'ADMIN')")
+    @PutMapping("/user/unactive/{username}")
+    @CrossOrigin
+    public  ResponseEntity<?> changeActiveUn(@PathVariable String username ){
+        Optional<User> user = userRepository.findByUsername(username);
+        if(user.isPresent()){
+            user.get().setActive(false);
+            userRepository.delete(user.get());
+            userRepository.save(user.get());
+        }
 
+        return ResponseEntity.ok(new MessageResponse("User update successfully!"));
+    }
+    @PreAuthorize("hasAnyRole( 'ADMIN')")
+    @GetMapping("/user")
+    @CrossOrigin
+    public  List<User> getAllUsers(){
+      List<User> allUsers= userRepository.findAll();
+      return allUsers;
+    }
+    @PreAuthorize("hasAnyRole( 'ADMIN')")
+    @PutMapping("/user/active/{username}")
+    @CrossOrigin
+    public  ResponseEntity<?> changeActive(@PathVariable String username ){
+        Optional<User> user = userRepository.findByUsername(username);
+        if(user.isPresent()){
+            user.get().setActive(true);
+            userRepository.delete(user.get());
+            userRepository.save(user.get());
+        }
 
+        return ResponseEntity.ok(new MessageResponse("User update successfully!"));
+    }
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -56,12 +89,15 @@ public class AuthController {
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
+        System.out.println("info: " + userDetails.isActive());
 
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                roles));
+            return ResponseEntity.ok(new JwtResponse(jwt,
+                    userDetails.getId(),
+                    userDetails.getUsername(),
+                    userDetails.getEmail(),
+                    userDetails.isActive(),
+                    roles));
+
     }
 
     @PostMapping("/signup")

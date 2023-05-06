@@ -23,6 +23,7 @@ public class User {
     @Email
     private String email;
 
+    private boolean active=true;
     @NotBlank
     @Size(max = 120)
     private String password;
@@ -37,6 +38,14 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public String getId() {

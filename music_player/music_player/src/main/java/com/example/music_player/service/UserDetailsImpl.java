@@ -19,6 +19,7 @@ public class UserDetailsImpl implements UserDetails {
     private String username;
 
     private String email;
+    private boolean active = true;
 
     @JsonIgnore
     private String password;
@@ -26,11 +27,12 @@ public class UserDetailsImpl implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
 
     public UserDetailsImpl(String id, String username, String email, String password,
-                           Collection<? extends GrantedAuthority> authorities) {
+                           boolean active, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.active=active;
         this.authorities = authorities;
     }
 
@@ -39,12 +41,17 @@ public class UserDetailsImpl implements UserDetails {
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
-        return new UserDetailsImpl(
+        UserDetailsImpl userDetails = new UserDetailsImpl(
                 user.getId(),
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
+                user.getActive(),
                 authorities);
+
+
+
+        return userDetails;
     }
 
     @Override
@@ -54,6 +61,14 @@ public class UserDetailsImpl implements UserDetails {
 
     public String getId() {
         return id;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public String getEmail() {
