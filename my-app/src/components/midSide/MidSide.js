@@ -102,7 +102,7 @@ function MidSide() {
         return LogoSrc;
     }
 
-    function toggleDiv(photo, title, artist, number) {
+    function toggleDiv(photo, title, artist,objectId ,number) {
         const LogoSrc = require(`../../musicElement/png/${photo}.png`);
         setNewTest({
             img: LogoSrc,
@@ -113,10 +113,10 @@ function MidSide() {
         let X=  title;
         let X1 = number;
         let X2=artist;
+        let X3=objectId;
 
-        console.log("this", number);
 
-      navigate('/app/reviews',{state:{title: {X}, artist:{X2}, img:{LogoSrc}, number: {X1}}})
+      navigate('/app/reviews',{state:{title: {X}, artist:{X2}, img:{LogoSrc}, number: {X1},objectId:{X3}}})
 
     }
     const token = localStorage.getItem('accessToken');
@@ -198,7 +198,7 @@ function MidSide() {
                                             <span className="ms-2">{song.artysta}</span>
                                         </th>
                                         <td className="align-middle"
-                                            onClick={() => toggleDiv(song.plik, song.tytul, song.artysta, song.number)}>
+                                            onClick={() => toggleDiv(song.plik, song.tytul, song.artysta, song.objectId,song.number)}>
                                             <span className="tytulMid">{song.tytul}</span>
                                         </td>
                                         <td className="align-middle">

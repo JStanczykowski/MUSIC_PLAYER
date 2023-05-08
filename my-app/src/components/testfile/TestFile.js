@@ -16,14 +16,14 @@ function TestFile() {
     const number = location.state.number.X1;
     const artist = location.state.artist.X2;
     const img = location.state.img.LogoSrc;
-
+    const objectId = location.state.objectId.X3;
 
     const [mus, setMus] = useState();
     const [reviews, setReviews] = useState([]);
 
     const getMusicData = async () => {
         try {
-            const response = await api.get(`/api/v1/music/${number}`,{
+            const response = await api.get(`/api/v1/music/${objectId}`,{
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
                 } });
@@ -63,7 +63,7 @@ function TestFile() {
                                 <div className="review-body">
                                     <img src={avatar} alt="avatar" />
                                     <div className="review-user">
-                                        <p className="review-username">User</p>
+                                        <p className="review-username" key={review.id.timestamp}>{review.owner}</p>
                                         <p className="review-text" key={review.id.timestamp}>{review.body}</p>
                                     </div>
                                     <div className="review-likes">

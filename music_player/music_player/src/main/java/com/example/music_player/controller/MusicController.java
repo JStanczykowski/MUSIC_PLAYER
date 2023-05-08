@@ -1,8 +1,10 @@
 package com.example.music_player.controller;
 
 
+import com.example.music_player.repository.MusicRepository;
 import com.example.music_player.service.MusicService;
 import com.example.music_player.model.music;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ public class MusicController {
     @Autowired
     private MusicService musicService;
 
+    @Autowired
+    private MusicRepository musicRepository;
 
     @PreAuthorize("hasAnyRole('USER', 'ADMIN','MODER')")
     @GetMapping
@@ -32,7 +36,17 @@ public class MusicController {
     @PreAuthorize("hasAnyRole('USER', 'ADMIN','MODER')")
     @GetMapping("/{number}")
     @CrossOrigin
-    public ResponseEntity<Optional<music>> getSingleMusic(@PathVariable String number){
-        return new ResponseEntity<Optional<music>>(musicService.singleMusic(number), HttpStatus.OK);
+    public ResponseEntity<Optional<music>> getSingleMusic(@PathVariable ObjectId number){
+        return new ResponseEntity<Optional<music>>(musicService.singleMusicByID(number), HttpStatus.OK);
+    }
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping("/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public void deleteSingleMusic(@PathVariable ObjectId id) {
+
+        if (musicService.singleMusicByID(id).isPresent()) {
+
+            musicService.deleteSingleMusic(musicService.singleMusicByID(id));
+        }
     }
 }

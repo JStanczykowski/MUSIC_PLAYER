@@ -10,4 +10,8 @@ import java.util.Optional;
 @Repository
 public interface MusicRepository extends MongoRepository<music, ObjectId> {
     Optional<music> findByNumber(String number);
+    Optional<music> findById (ObjectId id);
+
+
+    void delete(music  music);
 }

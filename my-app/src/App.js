@@ -20,6 +20,8 @@ import profileComponent from "./components/profilecomponent/ProfileComponent";
 import { createStore } from 'redux';
 import ProfileInfo from "./components/profileinfo/ProfileInfo";
 import Users from "./components/users/Users";
+import Music from "./components/Music/Music";
+import Comment from "./components/comment/Comment";
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -54,6 +56,8 @@ function App() {
                     </div>}/>
                     <Route path="/admin" element={<div className="glowny"><AdminPanel/></div> }/>
                     <Route path="/admin/users" element={<div className="glowny"><Users/></div> }/>
+                    <Route path="/admin/music" element={<div className="glowny"><Music/></div> }/>
+                    <Route path="/admin/music/comment" element={<div className="glowny"><Comment/></div> }/>
                 </Routes></BrowserRouter></div>
                 {isLoggedIn && <AudioPlayer /> }
             </Provider>

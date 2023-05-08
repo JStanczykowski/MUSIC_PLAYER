@@ -2,23 +2,35 @@ import React, { useState } from 'react';
 import './ReviewForm.css';
 import api from "../../api/axiosConfig";
 import avatar from "./avatar.png";
-const ReviewForm = ({ reviews, setReviews, number }) => {
+import jwt_decode from "jwt-decode";
+const ReviewForm = ({ reviews, setReviews, number,objectId }) => {
     const [comment, setComment] = useState('');
     const [rating, setRating] = useState('');
-
+    const token = localStorage.getItem('accessToken');
+    const decodedToken = jwt_decode(token);
+    const username = decodedToken.sub;
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         try {
-            const response = await api.post('/api/v1/reviews', { reviewBody:comment,number:number },
+            console.log(number);
+            const response = await api.post(
+                '/api/v1/reviews',
+                {
+                    reviewBody: comment,
+                    number: number,
+                    owner:username
+                },
                 {
                     headers: {
-                        'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer ' + localStorage.getItem('accessToken')
                     }
-                });
+                }
+            );
             console.log('Komentarz został dodany!');
-
-
+            if (response.status === 200) {
+                console.log('dziala');
+            }
             setComment('');
             setRating('');
             setReviews([...reviews, response.data]);
@@ -40,7 +52,7 @@ return (
                     <img
                         className="comment-avatar"
                         src={avatar}
-                        alt="Comment author avatar"
+                        alt="Music author avatar"
                     />
                     <div className="star-container">
                         <label htmlFor="rating1" className="star">&#9733;</label>
