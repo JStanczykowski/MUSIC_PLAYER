@@ -22,6 +22,8 @@ import ProfileInfo from "./components/profileinfo/ProfileInfo";
 import Users from "./components/users/Users";
 import Music from "./components/Music/Music";
 import Comment from "./components/comment/Comment";
+import AddMusic from "./components/addmusic/AddMusic";
+import ListMessage from "./components/listmessage/ListMessage";
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -55,9 +57,11 @@ function App() {
                     <Route path="/app/message/:username" element={<div className="glowny"><LeftSide/><InboxMess/>
                     </div>}/>
                     <Route path="/admin" element={<div className="glowny"><AdminPanel/></div> }/>
+                    <Route path="/admin/add" element={<div className="glowny"><AddMusic/></div> }/>
                     <Route path="/admin/users" element={<div className="glowny"><Users/></div> }/>
                     <Route path="/admin/music" element={<div className="glowny"><Music/></div> }/>
                     <Route path="/admin/music/comment" element={<div className="glowny"><Comment/></div> }/>
+                    <Route path="/admin/message" element={<div className="glowny"><ListMessage/></div> }/>
                 </Routes></BrowserRouter></div>
                 {isLoggedIn && <AudioPlayer /> }
             </Provider>

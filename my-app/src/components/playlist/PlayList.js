@@ -168,6 +168,7 @@ function PlayList(props) {
                                             className="contentClassName"
                                             type="text" placeholder="Enter name"
                                             value={name}
+                                            style={{ width: '450px', height:'80px', margin:'5px 5px 5px 5px' }}
                                             onChange={(e) => setName(e.target.value)}
                                             autoFocus/>
                                         <small id="emailHelp" className="form-text text-muted">Make sure the name means something to you.</small>

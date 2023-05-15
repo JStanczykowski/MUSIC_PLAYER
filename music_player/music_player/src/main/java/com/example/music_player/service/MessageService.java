@@ -4,6 +4,7 @@ import com.example.music_player.model.Message;
 import com.example.music_player.model.music;
 import com.example.music_player.repository.MessageRepository;
 import io.netty.handler.codec.MessageAggregator;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +17,6 @@ public class MessageService {
     MessageRepository messageRepository;
 
     public List<Message> findAllMess() {return messageRepository.findAll();}
+
     public List<Message> findMessByUsername(String username) {return messageRepository.findByUsername(username);}
 }

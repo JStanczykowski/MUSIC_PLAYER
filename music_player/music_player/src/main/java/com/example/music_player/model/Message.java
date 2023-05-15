@@ -18,12 +18,28 @@ public class Message {
     private String title;
     private String messageBody;
     private String reply;
-
+    private boolean active = true;
 
     public Message(String username, String title, String messageBody) {
         this.username = username;
         this.title = title;
         this.messageBody = messageBody;
+    }
+
+    public String getReply() {
+        return reply;
+    }
+
+    public void setReply(String reply) {
+        this.reply = reply;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public ObjectId getId() {

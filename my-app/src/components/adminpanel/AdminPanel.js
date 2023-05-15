@@ -12,6 +12,14 @@ const AdminPanel =()=>{
 
         navigate("/admin/music");
     }
+    const addmusic = async (event)=>{
+
+        navigate("/admin/add");
+    }
+    const message = async (event)=>{
+
+        navigate("/admin/message");
+    }
     const back =async()=>{
         localStorage.removeItem('accessToken');
         navigate('/login');
@@ -40,10 +48,16 @@ const AdminPanel =()=>{
             </div>
             <div className="row h-50">
                 <div className="col-sm-6 d-flex align-items-center justify-content-center">
-                    <button className="btn btn-primary">Add music</button>
+                    <button className="btn btn-primary"
+                            onClick={()=>{
+                                addmusic();
+                            }}>Add music</button>
                 </div>
                 <div className="col-sm-6 d-flex align-items-center justify-content-center">
-                    <button className="btn btn-primary">Wiadomości</button>
+                    <button className="btn btn-primary"
+                            onClick={()=>{
+                                message();
+                            }}>Wiadomości</button>
                 </div>
             </div>
         </div></div>
