@@ -12,7 +12,8 @@ Full-stack music player application using spring-boot,react, spring security,rea
 ![review](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/5358d1a8-af08-403f-a3a9-50d4597e3c3b)
 
 # PlayList creator
-![playlist](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/73391942-e1ba-4647-bf10-c9b31a59c17d)
+![playlist](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/ede5c4e7-6e28-45b6-b77c-90d425681077)
+
 
 # PlayList options
 ![playlist2](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/9e7dd38e-163b-49f5-939b-4c5c3cbc36d5)
