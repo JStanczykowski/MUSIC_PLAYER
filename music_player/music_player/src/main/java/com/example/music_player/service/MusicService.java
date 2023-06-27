@@ -1,6 +1,6 @@
 package com.example.music_player.service;
 
-import com.example.music_player.model.music;
+import com.example.music_player.model.Music;
 import com.example.music_player.repository.MusicRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +15,15 @@ public class MusicService {
     @Autowired
     private MusicRepository musicRepository;
 
-    public List<music> findAllMusic() {return musicRepository.findAll();}
+    public List<Music> findAllMusic() {return musicRepository.findAll();}
 
-    public Optional<music> singleMusic(String number){
+    public Optional<Music> singleMusic(String number){
         return musicRepository.findByNumber(number);
     }
-    public Optional<music> singleMusicByID(ObjectId id){
+    public Optional<Music> singleMusicByID(ObjectId id){
         return musicRepository.findById(id);
     }
-    public void deleteSingleMusic(Optional<music> music) {
+    public void deleteSingleMusic(Optional<Music> music) {
         music.ifPresent(musicRepository::delete);
     }
 

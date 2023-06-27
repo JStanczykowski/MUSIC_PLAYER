@@ -1,7 +1,7 @@
 package com.example.music_player.service;
 
 import com.example.music_player.model.Review;
-import com.example.music_player.model.music;
+import com.example.music_player.model.Music;
 import com.example.music_player.repository.ReviewRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class ReviewService {
     public Review createReview(String reviewBody, String number,String owner){
         Review review = reviewRepository.insert(new Review(reviewBody,owner));
 
-        mongoTemplate.update(music.class)
+        mongoTemplate.update(Music.class)
                 .matching(Criteria.where("number").is(number))
                 .apply(new Update().push("reviewIds").value(review))
                 .first();

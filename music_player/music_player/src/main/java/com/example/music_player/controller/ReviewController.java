@@ -1,7 +1,6 @@
 package com.example.music_player.controller;
 
 
-import com.example.music_player.model.music;
 import com.example.music_player.repository.ReviewRepository;
 import com.example.music_player.service.MusicService;
 import com.example.music_player.service.ReviewService;
@@ -13,12 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.awt.*;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/reviews")

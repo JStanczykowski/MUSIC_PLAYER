@@ -1,10 +1,9 @@
 package com.example.music_player.controller;
 
 import com.example.music_player.model.PlayList;
-import com.example.music_player.model.music;
+import com.example.music_player.model.Music;
 import com.example.music_player.repository.PlayListRepository;
 import com.example.music_player.service.PlayListService;
-import com.example.music_player.service.ResourceNotFoundException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -52,7 +51,7 @@ public class PlayListController {
 @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MODER')")
 @GetMapping("/{playlistId}/musicIds")
 @CrossOrigin
-public List<music> getMusicIdsByPlayListId(@PathVariable String playlistId) {
+public List<Music> getMusicIdsByPlayListId(@PathVariable String playlistId) {
     Optional<PlayList> optionalPlayList = playListRepository.findById(new ObjectId(playlistId));
     if (optionalPlayList.isPresent()) {
         Aggregation aggregation = Aggregation.newAggregation(
@@ -66,8 +65,8 @@ public List<music> getMusicIdsByPlayListId(@PathVariable String playlistId) {
                         .and("songs.plik").as("plik")
                         .and("songs.zdjecie").as("zdjecie")
         );
-        AggregationResults<music> results = mongoTemplate.aggregate(aggregation, "playlist", music.class);
-        List<music> mappedResults = results.getMappedResults();
+        AggregationResults<Music> results = mongoTemplate.aggregate(aggregation, "playlist", Music.class);
+        List<Music> mappedResults = results.getMappedResults();
         if (mappedResults.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No music found for the given playlist");
         }
