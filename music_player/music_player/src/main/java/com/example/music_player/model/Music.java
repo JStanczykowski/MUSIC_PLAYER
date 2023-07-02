@@ -33,6 +33,7 @@ public class Music {
         this.tytul = tytul;
         this.artysta = artysta;
         this.plik = plik;
+        this.objectId = id.toString();
     }
 
 }

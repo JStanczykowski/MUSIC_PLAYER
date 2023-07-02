@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MusicService {
@@ -16,7 +17,11 @@ public class MusicService {
     private MusicRepository musicRepository;
 
     public List<Music> findAllMusic() {return musicRepository.findAll();}
-
+    public List<Music> getAllMusicPersonal(){
+        List<Music> musicList = findAllMusic();
+        List<Music> musicDTOList = musicList.stream().map(m -> new Music(m.getId(), m.getNumber(), m.getTytul(), m.getArtysta(), m.getPlik())).collect(Collectors.toList());
+        return musicDTOList;
+    }
     public Optional<Music> singleMusic(String number){
         return musicRepository.findByNumber(number);
     }

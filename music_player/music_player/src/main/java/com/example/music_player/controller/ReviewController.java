@@ -7,6 +7,7 @@ import com.example.music_player.service.ReviewService;
 import com.example.music_player.model.Review;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,10 +23,7 @@ import java.util.Map;
 public class ReviewController {
     @Autowired
     private ReviewService reviewService;
-    @Autowired
-    private ReviewRepository reviewRepository;
-    @Autowired
-    private MusicService musicService;
+
     @PreAuthorize("hasAnyRole('USER', 'ADMIN','MODER')")
     @PostMapping
     @CrossOrigin
@@ -38,23 +36,15 @@ public class ReviewController {
     @GetMapping("/{id}")
     @CrossOrigin
     public Map<String, String> listReview(@PathVariable ObjectId id) {
-        List<Review> reviewList = musicService.singleMusicByID(id).get().getReviewIds();
-
-        Map<String, String> reviewMap = new HashMap<>();
-        for (Review review : reviewList) {
-            reviewMap.put(review.getId().toString(), review.getBody());
-        }
-
-        return reviewMap;
+        return reviewService.reviewList(id);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{id}")
     @CrossOrigin
-    public void deleteSingleComment(@PathVariable ObjectId id){
+    public void deleteSingleComment(@PathVariable ObjectId id) {
 
         if (reviewService.singleReviewByID(id).isPresent()) {
-
             reviewService.deleteSingleReview(reviewService.singleReviewByID(id));
         }
     }

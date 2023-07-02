@@ -49,7 +49,7 @@ function MidSide() {
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
                 } });
-
+            console.log(response.data)
                 setMusic(response.data);
 
         } catch (error) {

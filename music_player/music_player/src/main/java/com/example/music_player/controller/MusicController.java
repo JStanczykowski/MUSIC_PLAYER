@@ -29,9 +29,7 @@ public class MusicController {
     @GetMapping
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<List<Music>> getMusic(){
-        List<Music> musicList = musicService.findAllMusic();
-        List<Music> musicDTOList = musicList.stream().map(m -> new Music(m.getId(), m.getNumber(), m.getTytul(), m.getArtysta(), m.getPlik())).collect(Collectors.toList());
-        return new ResponseEntity<List<Music>>(musicDTOList, HttpStatus.OK);
+             return new ResponseEntity<List<Music>>(musicService.getAllMusicPersonal(), HttpStatus.OK);
     }
     @PreAuthorize("hasAnyRole('USER', 'ADMIN','MODER')")
     @GetMapping("/{number}")
