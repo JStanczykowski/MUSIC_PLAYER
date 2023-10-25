@@ -21,7 +21,9 @@ import java.util.stream.Collectors;
 public class MusicController {
     @Autowired
     private MusicService musicService;
-
+//    Pytania i odpowiedzi dotyczące muzyki:
+//
+//    Chatbot może odpowiadać na pytania użytkowników dotyczące informacji o artystach, albumach, tekstach piosenek itp.
     @Autowired
     private MusicRepository musicRepository;
 
