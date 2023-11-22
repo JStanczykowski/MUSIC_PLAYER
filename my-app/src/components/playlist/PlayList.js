@@ -3,7 +3,7 @@ import './PlayList.css';
 import { useNavigate } from 'react-router-dom';
 import store, {playTrack} from '../store/store';
 import {Provider, useDispatch, useSelector} from 'react-redux';
-import AudioPlayer from '../adioplayer/AudioPlayer';
+import AudioPlayer from '../audioplayer/AudioPlayer';
 import jwt_decode from 'jwt-decode';
 import api from '../../api/axiosConfig';
 import AddPlayList from "../addPlayList/AddPlayList";
@@ -91,7 +91,8 @@ function PlayList(props) {
     const table = useSelector((state)=>state.playlist);
     useEffect(() => {
         try {
-            const image = require(`../../musicElement/png/${table[index].plik}.png`);
+            // const image = require(`../../musicElement/png/${table[index].plik}.png`);
+            const image = `https://drive.google.com/uc?id=${table[index].zdjecie}`;
             dispatch(playTrack(table[index].tytul, table[index].artysta, table[index].plik, image));
         }
         catch (err) {

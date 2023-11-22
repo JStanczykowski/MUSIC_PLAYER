@@ -9,7 +9,7 @@
     bottom:0;
     z-index:50000;
     width: 100vw;
-    height: 7%;
+    height: 11%;
     border-top: 1px solid gray;
 }
 .progress-bar-fill::after {
@@ -175,6 +175,7 @@
 }
 .logomuza{
     width: 17vw;
+    border-radius: 10px;
 }
 
 .muza{
@@ -184,4 +185,36 @@
     width: 17vw;
     margin-right: 75vw;
     margin-top: 3%;
+}
+
+@media only screen and (max-width: 768px) {
+    .volume {
+        display: none;
+    }
+    .progress-bar{
+        width: 230px;
+    }
+    .controls{
+        margin-right: 65px;
+    }
+
+    .current-time{
+        margin-left: 5%;
+    }
+    .duration{
+        margin-left: 93%;
+    }
+    .song-info{
+        width: 25%;
+    }
+    .song-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 0 0 2px 5px;
+    }
+
+    .artist-name {
+        font-size: 12px;
+        margin: 0 0 5px 5px;
+    }
 }

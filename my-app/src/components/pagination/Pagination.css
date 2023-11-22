@@ -1,0 +1,39 @@
+.pagination{
+    margin-bottom:10%;
+
+}
+@media only screen and (max-width: 768px) {
+    #logoImg{
+        width: 35px;
+        height: 35px;
+    }
+    #alignMid{
+        font-size: 10px;
+    }
+    .button{
+        width: 20px;
+    }
+    .tytulMid{
+        font-size: 10px;
+    }
+    .card-body{
+        width: 220px;
+    }
+    #artystaId{
+        font-size: 12px;
+        float: right;
+    }
+    #alignMidTr{
+        display: flex;
+    }
+}
+.pageNumber{
+    padding: 10px;
+    color:black;
+}
+.pageNumber:hover{
+    color:green;
+}
+.active{
+    color:white;
+}

@@ -1,18 +1,15 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import './LeftSide.css';
-import img from './JSIFY.PNG';
-import { AccessAlarm, ThreeDRotation  } from '@mui/icons-material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import imgLarge from './JSIFY.PNG';
+import imgSmall from './JSFIY_RESPO.PNG';
 import { SvgIcon } from '@mui/material';
-
 import { FaSearch,FaItunesNote,FaHome  } from 'react-icons/fa';
-import rogal from '../../musicElement/mp3/rogal.mp3';
-import uzi from '../../musicElement/png/img.png';
-import AudioPlayer from '../adioplayer/AudioPlayer';
-import ReactAudioPlayer from 'react-audio-player';
 import {useNavigate} from "react-router-dom";
-function LeftSide  (props){
+import MidSide from "../midSide/MidSide";
+
+function LeftSide  ({setStatus} ){
     const navigate = useNavigate();
+
     function HomeIcon(props) {
         return (
             <SvgIcon {...props}>
@@ -29,26 +26,46 @@ function LeftSide  (props){
         navigate('/app/playlist');
 
     }
-    const search = async (event)=>{
-        navigate('/app/search');
+
+
+    const handleSearchClick = async (event)=>{
+        setStatus((prevStatus) => !prevStatus);
 
     }
+    const [imgSource, setImgSource] = useState(imgLarge);
+    useEffect(() => {
+        const handleResize = () => {
+            setImgSource(window.innerWidth <= 760 ? imgSmall : imgLarge);
+        };
 
+        // Dodaj listener na zmianę rozmiaru ekranu
+        window.addEventListener('resize', handleResize);
+
+        // Wywołaj handleResize, aby ustawić obraz przy załadowaniu strony
+        handleResize();
+
+        // Usuń listener przy odmontowaniu komponentu
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
     return(
         <div className="x">
             <div className="y">
-           <img src={img} alt="xd" className="logo" />
-        </div>
+                <img src={imgSource} alt="xd" className="logo" />
+            </div>
 
             <div className="z">
-            <nav className="navX">
-                <ul className="ulX">
-                    <li className="liX" onClick={app}> <FaHome />  Home</li>
-                    <li className="liX" onClick={search}>   <FaSearch /> Search</li>
-                    <li className="liX" onClick={playlist}><FaItunesNote /> Your Library</li>
-                </ul>
-            </nav>
-        </div>
+                <nav className="navX">
+                    <ul className="ulX">
+                        <li className="liX" onClick={app}><FaHome /> <p className="left-text">Home</p></li>
+                        <li className="liX" onClick={handleSearchClick}>
+                            <FaSearch /> <p className="left-text">Search </p>
+                        </li>
+                        <li className="liX" onClick={playlist}><FaItunesNote /> <p className="left-text">Your Library </p></li>
+                    </ul>
+                </nav>
+            </div>
 
 
 

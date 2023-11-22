@@ -4,7 +4,7 @@ import api from "../../api/axiosConfig";
 import ReviewForm from "../reviewForm/ReviewForm";
 import avatar from "./avatar.png";
 import { useLocation } from 'react-router-dom'
-import AudioPlayer from "../adioplayer/AudioPlayer";
+import AudioPlayer from "../audioplayer/AudioPlayer";
 
 import { Provider } from 'react-redux';
 import store from "../store/store";

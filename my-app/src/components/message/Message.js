@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import LeftSide from "../leftSide/LeftSide";
-import AudioPlayer from "../adioplayer/AudioPlayer";
+import AudioPlayer from "../audioplayer/AudioPlayer";
 import store from '../store/store';
 import { Provider } from 'react-redux';
 import jwt_decode from "jwt-decode";

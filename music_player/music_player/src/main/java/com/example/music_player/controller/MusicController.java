@@ -11,9 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/music")
@@ -32,6 +32,13 @@ public class MusicController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<List<Music>> getMusic(){
              return new ResponseEntity<List<Music>>(musicService.getAllMusicPersonal(), HttpStatus.OK);
+    }
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN','MODER')")
+    @GetMapping("/getMusicByGenre")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public ResponseEntity<List<Music>> getMusicByGenre(@RequestParam List<String> genres){
+
+        return new ResponseEntity<List<Music>>(musicService.getMusicByGenre(genres), HttpStatus.OK);
     }
     @PreAuthorize("hasAnyRole('USER', 'ADMIN','MODER')")
     @GetMapping("/{number}")

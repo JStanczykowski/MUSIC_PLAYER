@@ -1,4 +1,5 @@
-.search{
-    margin-left: 20%;
-
+.searchScreenMain{
+    height: 10%;
+    display: flex;
+    width: 100%;
 }

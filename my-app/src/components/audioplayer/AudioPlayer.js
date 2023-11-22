@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {createContext, useContext, useEffect, useRef, useState} from 'react';
 import {useSelector, useDispatch, connect} from 'react-redux';
 import ReactAudioPlayer from 'react-audio-player';
 import { FaPlay, FaPause, FaStepBackward, FaStepForward } from 'react-icons/fa';
 import './AudioPlayer.css';
+
 import store, {
     playTrack,
     pauseTrack,
@@ -18,6 +19,7 @@ import store, {
 const AudioPlayer = (props) => {
     const dispatch = useDispatch();
 
+
     const [audioObj, setAudioObj] = useState(null);
     const { audio: audioState } = useSelector((state) => state);
 
@@ -27,9 +29,20 @@ const AudioPlayer = (props) => {
     const currentTimeEl = document.getElementById("currentTime");
     const progressBarEl = document.getElementById("progressBar");
     const durationTimeEl= document.getElementById("durationTime");
+    const [currentPlaybackPosition, setCurrentPlaybackPosition] = useState(0);
     useEffect(() => {
         if (store.getState().audioS) {
-            const audio = new Audio(require(`../../musicElement/mp3/${store.getState().audioS}.mp3`));
+            // Check if there's an existing audio object
+            if (store.getState().audioElement) {
+                // Stop the existing audio
+                store.getState().audioElement.pause();
+                store.getState().audioElement.currentTime = 0;
+            }
+            const audioUrl = `https://www.googleapis.com/drive/v3/files/${store.getState().audioS}?alt=media&key=AIzaSyCwAwTjI4pVK7FbxdAiH-xUWPzDGXDcnc4&v=.mp3`;
+            // const audio = new Audio(require(`../../musicElement/mp3/${store.getState().audioS}.mp3`));
+            const audio = new Audio(audioUrl);
+            console.log("audio: "+audioUrl);
+            console.log("audioS: "+store.getState().audioS);
             dispatch(setAudioElement(audio));
 
             store.getState().audioElement.addEventListener('loadedmetadata', () => {
@@ -54,6 +67,7 @@ const AudioPlayer = (props) => {
                     playNext();
                 }},1000);
             });
+            audio.play();
         }
     }, [store.getState().audioS,dispatch]);
     const playlistList=useSelector((state)=>state.playlist);
@@ -66,11 +80,13 @@ const AudioPlayer = (props) => {
         try{
         if (index+1 < table.length) {
             dispatch(setIndex(currentIndex+1));
-            const image = require(`../../musicElement/png/${table[index+1].plik}.png`);
+
+            const image = `https://drive.google.com/uc?id=${table[index+1].zdjecie}`;
             dispatch(playTrack(table[index+1].tytul, table[index+1].artysta, table[index+1].plik, image));
         } else {
             dispatch(setIndex(0));
-            const image = require(`../../musicElement/png/${table[0].plik}.png`);
+
+            const image = `https://drive.google.com/uc?id=${table[0].zdjecie}`;
             dispatch(playTrack(table[0].tytul, table[0].artysta, table[0].plik, image));
         }
             }
@@ -82,11 +98,13 @@ const AudioPlayer = (props) => {
         try{
             if (index-1 >= 0) {
                 dispatch(setIndex(currentIndex-1));
-                const image = require(`../../musicElement/png/${table[index-1].plik}.png`);
+                // const image = require(`../../musicElement/png/${table[index-1].plik}.png`);
+                const image = `https://drive.google.com/uc?id=${table[index-1].zdjecie}`;
                 dispatch(playTrack(table[index-1].tytul, table[index-1].artysta, table[index-1].plik, image));
             } else {
                 dispatch(setIndex(table.length-1));
-                const image = require(`../../musicElement/png/${table[table.length-1].plik}.png`);
+
+                const image = `https://drive.google.com/uc?id=${table[table.length-1].zdjecie}`;
                 dispatch(playTrack(table[table.length-1].tytul, table[table.length-1].artysta, table[table.length-1].plik, image));
             }
         }
@@ -96,16 +114,33 @@ const AudioPlayer = (props) => {
     }
     const table = useSelector((state)=>state.playlist);
     const index = useSelector((state)=>state.index);
-
+    // useEffect(() => {
+    //     const audioObj = store.getState().audioElement;
+    //     if (audioObj) {
+    //         if (store.getState().isPlaying) {
+    //             audioObj.play();
+    //         } else {
+    //             audioObj.pause();
+    //         }
+    //     }
+    // }, [store.getState().isPlaying, store.getState().audioElement]);
     const handlePlay = () => {
-
-        const image = require(`../../musicElement/png/${table[index].plik}.png`);
+        dispatch(pauseTrack());
+        if (store.getState().audioElement) {
+            store.getState().audioElement.pause();
+            store.getState().audioElement.currentTime = 0;
+        }
+        localStorage.setItem('isPlaying', 'false');
+        // const image = require(`../../musicElement/png/${table[index].plik}.png`);
+        const image = `https://drive.google.com/uc?id=${table[index].zdjecie}`;
         dispatch(playTrack(table[index].tytul, table[index].artysta, table[index].plik, image));
         dispatch(setAudioPlayerRef(audioPlayerRef));
         const audioObj = store.getState().audioElement;
         console.log(store.getState().audioElement.currentTime)
 
         if (audioObj) {
+            // Set the playback position before playing
+            audioObj.currentTime = currentPlaybackPosition;
             audioObj.play();
         }
         localStorage.setItem('isPlaying', 'true');
@@ -115,6 +150,7 @@ const AudioPlayer = (props) => {
         dispatch(pauseTrack());
         const audioObj = store.getState().audioElement;
         if (audioObj) {
+            setCurrentPlaybackPosition(audioObj.currentTime);
             audioObj.pause();
         }
         localStorage.setItem('isPlaying', 'false');
@@ -124,6 +160,7 @@ const AudioPlayer = (props) => {
         dispatch(stopTrack());
         const audioObj = store.getState().audioElement;
         if (audioObj) {
+            setCurrentPlaybackPosition(audioObj.currentTime);
             audioObj.pause();
             audioObj.currentTime = 0;
         }
@@ -155,6 +192,12 @@ const AudioPlayer = (props) => {
             }
         };
     }, [dispatch]);
+    const setVolume = (volume) => {
+        const audioObj = store.getState().audioElement;
+        if (audioObj) {
+            audioObj.volume = volume/2;
+        }
+    }
     //
     // const progressBarWidth = `${store.getState().currentTime / store.getState().duration* 100}%`;
     return (
@@ -187,6 +230,7 @@ const AudioPlayer = (props) => {
                 <span className="duration" id="durationTime">1</span>
             </div>
             {audioObj && (
+                <div>
                 <ReactAudioPlayer
 
                     ref={audioPlayerRef}
@@ -208,6 +252,15 @@ const AudioPlayer = (props) => {
                         })
                     }
                 />
+                <input
+                className="volume"
+                type="range"
+                min="0"
+                max="1"
+                step="0.1"
+                defaultValue="1"
+                onChange={(e) => setVolume(e.target.value)}
+                /></div>
             )}
             <div className="muza">
                 <img src={store.getState().image} alt="xd" className="logomuza" />

@@ -87,6 +87,7 @@ const playerReducer = (state = initialState, action) => {
             return {
                 ...state,
                 playlist: playlist
+
             };
         case 'PLAYLIST_TO_PLAYLIST':
             const indexX = action.payload.index;

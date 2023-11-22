@@ -3,7 +3,7 @@ import './PlayListSingle.css';
 import { useNavigate } from 'react-router-dom';
 import store from '../store/store';
 import { Provider } from 'react-redux';
-import AudioPlayer from '../adioplayer/AudioPlayer';
+import AudioPlayer from '../audioplayer/AudioPlayer';
 import jwt_decode from 'jwt-decode';
 import api from '../../api/axiosConfig';
 import { useParams } from 'react-router-dom';
@@ -35,7 +35,8 @@ function PlayListSingle(props) {
         getPlaylist();
     }, []);
     function srcImg(photo) {
-        const LogoSrc = require(`../../musicElement/png/${photo}.png`);
+       
+        const LogoSrc = `https://drive.google.com/uc?id=${photo}`;
         return LogoSrc;
     }
     const back = async ()=>{

@@ -7,7 +7,7 @@ function Login({ setIsLoggedIn }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-
+    const [error, setError] = useState(null);
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -45,7 +45,7 @@ function Login({ setIsLoggedIn }) {
                     }
                 }
             } else {
-                console.log('Login failed.');
+                setError('Invalid email address');
             }
         } catch (error) {
             console.log('Error:', error);
@@ -62,9 +62,14 @@ function Login({ setIsLoggedIn }) {
                         <div className="px-5 ms-xl-4">
                             <i className="fas fa-crow fa-2x me-3 pt-5 mt-xl-4"></i>
                           <img src={jsf} alt="xd" className="logoHe"/>
+                            {error && (
+                                <div className="alert alert-danger" role="alert">
+                                    {error}
+                                </div>)}
                         </div>
                         <div className="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
                            <form onSubmit={handleSubmit}>
+
                                 <h3 className="fw-normal mb-3 pb-3">Log in</h3>
                                 <div className="form-outline mb-4">
                                     <input

@@ -49,8 +49,32 @@
     color: #fff;
     font-size: 23px;
     margin-top: 2px;
+    width: 100%;
     border-bottom: 1px solid #fff;
 }
+.left-text{
+  font-size:20px;
+    float:right;
+
+}
+@media only screen and (max-width: 768px) {
+    .liX {
+        width: 20%;
+    }
+    .left-text{
+        display: none;
+
+    }
+    .logo{
+
+        width: 40px;
+        height: 160px;
+        display: inline-block;
+        margin-left: 18%;
+
+    }
+}
+
 .liX:hover{
     font-size:26px;
     font-weight: bold;

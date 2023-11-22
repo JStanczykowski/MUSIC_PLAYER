@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AudioPlayer from '../adioplayer/AudioPlayer';
+import AudioPlayer from '../audioplayer/AudioPlayer';
 import { AudioPlayerProvider } from '../store/store';
 function AudioPlayerWrapper() {
     const [isPlaying, setIsPlaying] = useState(false);

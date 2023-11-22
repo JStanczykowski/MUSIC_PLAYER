@@ -24,16 +24,19 @@ public class Music {
     private String zdjecie;
     private String plik;
     private String objectId;
+    private String genre;
     @DocumentReference
     private List<Review> reviewIds;
 
-    public Music(ObjectId id, String number, String tytul, String artysta, String plik) {
+    public Music(ObjectId id, java.lang.String number, java.lang.String tytul, java.lang.String artysta, java.lang.String plik, java.lang.String zdjecie, String genre) {
         this.id = id;
         this.number = number;
         this.tytul = tytul;
         this.artysta = artysta;
         this.plik = plik;
         this.objectId = id.toString();
+        this.zdjecie = zdjecie;
+        this.genre = genre;
     }
 
 }

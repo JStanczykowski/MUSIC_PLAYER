@@ -8,14 +8,26 @@ function Register({ setIsLoggedIn }) {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [reapPwd, setReapPwd] = useState('');
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // Check if the passwords match
+        // Sprawdzenie poprawności danych
         if (password !== reapPwd) {
-            console.log('Passwords do not match');
+            setError('Passwords do not match');
+            return;
+        }
+
+        if (!email.includes('@')) {
+            setError('Invalid email address');
+            return;
+        }
+
+        // Przykładowa walidacja dla loginu (ciągu znaków)
+        if (!username.match(/^[a-zA-Z0-9]+$/)) {
+            setError('Username should contain only letters and numbers');
             return;
         }
 
@@ -56,6 +68,10 @@ function Register({ setIsLoggedIn }) {
                         </div>
                         <div className="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
                             <form onSubmit={handleSubmit}>
+                                {error && (
+                                    <div className="alert alert-danger" role="alert">
+                                        {error}
+                                    </div>)}
                                 <h3 className="fw-normal mb-3 pb-3">Register</h3>
                                 <div className="form-outline mb-4">
                                     <input
@@ -71,10 +87,11 @@ function Register({ setIsLoggedIn }) {
                                     </label>
                                 </div>
 
-                                <div className="form-outline mb-4">
+                                <div className="form-outline mb-3">
                                     <input
                                         type="text"
                                         id="form2Example18"
+                                        maxLength="20"
                                         className="form-control form-control-lg"
                                         value={username}
                                         onChange={(event) => setUsername(event.target.value)}

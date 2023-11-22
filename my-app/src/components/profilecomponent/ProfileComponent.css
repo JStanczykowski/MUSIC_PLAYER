@@ -20,3 +20,11 @@
     float: left;
     margin-right: 2vw;
 }
+@media only screen and (max-width: 768px) {
+    .profProfil{
+        height: 29px;
+        width: 29px;
+
+    }
+
+}

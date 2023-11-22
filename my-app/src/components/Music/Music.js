@@ -23,13 +23,14 @@ const Music =()=>{
         }
     };
     function srcImg(photo) {
-        const LogoSrc = require(`../../musicElement/png/${photo}.png`);
+
+        const LogoSrc = `https://drive.google.com/uc?id=${photo}`;
         return LogoSrc;
     }
     const navigate = useNavigate();
-    function toggleDiv(photo, title, artist, number) {
-        const LogoSrc = require(`../../musicElement/png/${photo}.png`);
-
+    function toggleDiv(photo, title, artist, number,zdjecie) {
+        // const LogoSrc = require(`../../musicElement/png/${photo}.png`);
+        const LogoSrc = `https://drive.google.com/uc?id=${zdjecie}`;
         let X=  title;
         let X1 = number;
         let X2=artist;
@@ -81,12 +82,12 @@ const Music =()=>{
                     return (
                         <tr key={song.id} className="fw-normal">
                             <th>
-                                <img src={srcImg(song.plik)} alt="x"
+                                <img src={srcImg(song.zdjecie)} alt="x"
                                      className="shadow-1-strong rounded-circle"/>
                                 <span className="ms-2">{song.artysta}</span>
                             </th>
                             <td className="align-middle"
-                                onClick={() => toggleDiv(song.plik, song.tytul, song.artysta, song.objectId)}>
+                                onClick={() => toggleDiv(song.plik, song.tytul, song.artysta, song.objectId,song.zdjecie)}>
                                 <span className="tytulMid">{song.tytul}</span>
                             </td>
                             <td className="align-middle"

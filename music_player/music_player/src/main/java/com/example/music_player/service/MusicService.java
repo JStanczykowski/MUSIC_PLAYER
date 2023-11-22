@@ -6,8 +6,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,12 +16,28 @@ public class MusicService {
     private MusicRepository musicRepository;
 
     public List<Music> findAllMusic() {return musicRepository.findAll();}
+
     public List<Music> getAllMusicPersonal(){
         List<Music> musicList = findAllMusic();
-        List<Music> musicDTOList = musicList.stream().map(m -> new Music(m.getId(), m.getNumber(), m.getTytul(), m.getArtysta(), m.getPlik())).collect(Collectors.toList());
+        List<Music> musicDTOList = musicList.stream()
+                .map(m -> new Music(m.getId(), m.getNumber(), m.getTytul(), m.getArtysta(), m.getPlik(),m.getZdjecie(),m.getGenre()))
+                .collect(Collectors.toList());
         return musicDTOList;
     }
-    public Optional<Music> singleMusic(String number){
+    public List<Music> getMusicByGenre(List<String> genreList) {
+        Set<Music> musicList = new HashSet<>();
+        for (String genre : genreList) {
+            List<Music> musicsByGenre = musicRepository.findByGenre(genre);
+            musicList.addAll(musicsByGenre);
+        }
+
+        List<Music> musicDTOList = musicList.stream()
+                .map(m -> new Music(m.getId(), m.getNumber(), m.getTytul(), m.getArtysta(), m.getPlik(), m.getZdjecie(), m.getGenre()))
+                .collect(Collectors.toList());
+        return musicDTOList;
+    }
+
+    public Optional<Music> singleMusic(java.lang.String number){
         return musicRepository.findByNumber(number);
     }
     public Optional<Music> singleMusicByID(ObjectId id){

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 
 const CLIENT_ID = '961838173429-idai5tfflf8vkd1oojua97qh2nbq8695.apps.googleusercontent.com';
 const API_KEY = 'AIzaSyAsr6U6z-L5C-KxD2ZZESE_XxlDNpRmBwM';
@@ -34,7 +34,19 @@ const AddMusic = () => {
     };
 
     useGoogleApi(handleClientLoad);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const audioRef = React.createRef();
 
+    const audioUrl = 'https://www.googleapis.com/drive/v3/files/1iRct9k7Tba5RuWxvRNDFC-IVflfqqYsV?alt=media&key=AIzaSyCwAwTjI4pVK7FbxdAiH-xUWPzDGXDcnc4&v=.mp3';
+
+    const playMusic = () => {
+        if (isPlaying) {
+            audioRef.current.pause();
+        } else {
+            audioRef.current.play();
+        }
+        setIsPlaying(!isPlaying);
+    };
     const uploadFile = async () => {
         const file = document.getElementById('file').files[0];
         const metadata = {
@@ -88,6 +100,12 @@ const AddMusic = () => {
             <h1>Upload File to Google Drive</h1>
             <input type="file" id="file" />
             <button onClick={uploadFile}>Upload</button>
+            <img src="https://drive.google.com/uc?id=1IzelAnjKsDPtBv6DcDJjluhkPwZVCfTn" />
+
+            <div>
+                <button onClick={playMusic}>{isPlaying ? 'Pause' : 'Play'}</button>
+                <audio ref={audioRef} src={audioUrl} />
+            </div>
         </div>
     );
 };

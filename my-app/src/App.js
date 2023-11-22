@@ -7,7 +7,7 @@ import Register from './components/register/Register';
 import './App.css';
 import PlayList from './components/playlist/PlayList';
 import Reviews from "./components/testfile/TestFile";
-import AudioPlayer from "./components/adioplayer/AudioPlayer";
+import AudioPlayer from "./components/audioplayer/AudioPlayer";
 import { Provider } from 'react-redux';
 import AddPlayList from "./components/addPlayList/AddPlayList";
 import store from './components/store/store';
@@ -26,6 +26,7 @@ import AddMusic from "./components/addmusic/AddMusic";
 import ListMessage from "./components/listmessage/ListMessage";
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [currentStatus, setCurrentStatus] = useState(false);
 
     return (
         <div>
@@ -36,7 +37,8 @@ function App() {
                         <>
                             <Route path="/app" element={<div className="glowny">
 
-                                <LeftSide /><MidSide /></div>} />
+                                <LeftSide setStatus={setCurrentStatus}/>
+                                <MidSide status={currentStatus}/></div>} />
                         </>
                     ) : (
                         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />

@@ -3,7 +3,7 @@ import './AddPlayList.css';
 import { useNavigate } from 'react-router-dom';
 import store from '../store/store';
 import { Provider } from 'react-redux';
-import AudioPlayer from '../adioplayer/AudioPlayer';
+import AudioPlayer from '../audioplayer/AudioPlayer';
 import jwt_decode from 'jwt-decode';
 import api from '../../api/axiosConfig';
 
