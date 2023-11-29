@@ -91,7 +91,7 @@ function MidSide({status}) {
         const pageCount = Math.ceil(music.length / itemsPerPage);
         const offset = currentPage * itemsPerPage;
 
-        const currentItems = music.slice(offset, offset + itemsPerPage);
+        // const currentItems = music.slice(offset, offset + itemsPerPage);
 
         const handlePageClick = ({ selected }) => {
             setCurrentPage(selected);
@@ -100,7 +100,7 @@ function MidSide({status}) {
 
         <div className="fullContainer">
             <div id="testfile-container"></div>
-            <Pagination music={music} username={username} playlistApi={playlistApi} searchState={status} />
+            <Pagination music={music} setMusic={setMusic} username={username} playlistApi={playlistApi} searchState={status} />
             <div className="player" >
                 {/*{showAudioPlayer && (*/}
                 {/*<AudioPlayer*/}

@@ -3,6 +3,7 @@ import ReactPaginate from 'react-paginate';
 import ProfileComponent from "../profilecomponent/ProfileComponent";
 import img from "../leftSide/JSIFY.PNG";
 import {FaHeart, FaPlayCircle, FaPlusCircle} from "react-icons/fa";
+import { TbZoomReset } from "react-icons/tb";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import store, {playTrack} from "../store/store";
 import {useDispatch, useSelector} from "react-redux";
@@ -11,11 +12,27 @@ import {useLocation, useNavigate} from "react-router-dom";
 import "./Pagination.css";
 import AudioPlayer from "../audioplayer/AudioPlayer";
 import {useAudioPlayer} from "../audioplayer/AudioPlayer";
+import ModalAdvancedSearch from "../pagination/modalAdvancedSearch/ModalAdvancedSearch";
 import SearchScreen from "../searchscreen/SearchScreen";
-function Pagination({ music, username, playlistApi,searchState }) {
+function Pagination({ music, setMusic, username, playlistApi,searchState }) {
     const itemsPerPage = 5; // Ilosć elementów na stronie
     const [currentPage, setCurrentPage] = useState(0);
-
+    const [response, setResponse] = useState(null);
+    const handleResponse = (data) => {
+        if (data && typeof data === 'object') {
+            console.log(typeof data);
+            const dataArray = Object.values(data); // Przekształcenie pojedynczego obiektu 'data' w tablicę wartości
+            console.log(dataArray);
+            setMusic(dataArray); // Aktualizacja wartości 'music' przy użyciu funkcji przekazanej jako props ('setMusic')
+            // console.log(dataArray[0]);
+        }
+        else {
+            console.log(data);
+            setMusic(data);
+        }
+        // console.log(music);
+        setResponse(data);
+    };
     const pageCount = Math.ceil(music.length / itemsPerPage);
     const offset = currentPage * itemsPerPage;
 
@@ -37,9 +54,24 @@ function Pagination({ music, username, playlistApi,searchState }) {
         const LogoSrc = `https://drive.google.com/uc?id=${photo}`;
         return LogoSrc;
     }
+    const getMusic = async () => {
+        console.log('Wartość searchState:', searchState);
+        try {
+            const response = await api.get("/api/v1/music",{
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                } });
+            console.log(response.data)
+            setMusic(response.data);
+
+        } catch (error) {
+            console.log('Error:', error);
+        }
+    };
     const table = useSelector((state)=>state.playlist);
     const index = useSelector((state)=>state.index);
     useEffect(() => {
+        console.log(typeof handleResponse);
         try {
             console.log('useEffect triggered');
             const image = `https://drive.google.com/uc?id=${table[index].zdjecie}`;
@@ -129,8 +161,10 @@ function Pagination({ music, username, playlistApi,searchState }) {
     return (
         <div className="xd">
             <ProfileComponent name={username}/>
+
             <div className="card-body"   >
-                {searchState ? <SearchScreen/> : null}
+                <TbZoomReset className="buttonReset" onClick={() =>getMusic()}/>
+                {searchState ? <ModalAdvancedSearch setShow={searchState} setResponse={handleResponse}/> : null}
 
                 <table className="table mb-0" >
                     <thead>

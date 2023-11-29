@@ -3,6 +3,9 @@
 
 }
 @media only screen and (max-width: 768px) {
+    #searchModel{
+        width: 70%;
+    }
     #logoImg{
         width: 35px;
         height: 35px;
@@ -12,6 +15,9 @@
     }
     .button{
         width: 20px;
+    }
+    .buttonReset{
+        width: 30px;
     }
     .tytulMid{
         font-size: 10px;
@@ -36,4 +42,12 @@
 }
 .active{
     color:white;
+}
+.buttonReset{
+
+    font-size: 50px;
+    margin-right: 20%;
+}
+.buttonReset:hover{
+    color: white;
 }
