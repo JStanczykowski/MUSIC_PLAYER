@@ -2,17 +2,12 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import React, {useEffect, useState} from "react";
-import store from "../../store/store";
 import api from "../../../api/axiosConfig";
 import jwt_decode from "jwt-decode";
-import Pagination from "../Pagination";
-import login from "../../login/Login";
 function ModalAdvancedSearch(props) {
 
     const [show, setShow] = useState(false);
-    const [show2, setShow2] = useState('');
     const [data, setData] = useState([]);
-    const [searchQuery, setSearchQuery] = useState("");
     const [filter, setFilter] = useState("");
 
 

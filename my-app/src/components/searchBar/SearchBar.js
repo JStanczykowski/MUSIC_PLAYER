@@ -1,10 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
-import TextField from "@mui/material/TextField";
-import { Provider } from 'react-redux';
-import store from "../store/store";
-import AudioPlayer from "../audioplayer/AudioPlayer";
+import React from 'react';
+
 
 const SearchBar =({setSearchQuery})=>{
 

@@ -4,8 +4,9 @@ import imgLarge from './JSIFY.PNG';
 import imgSmall from './JSFIY_RESPO.PNG';
 import { SvgIcon } from '@mui/material';
 import { FaSearch,FaItunesNote,FaHome  } from 'react-icons/fa';
+import { IoMan } from "react-icons/io5";
 import {useNavigate} from "react-router-dom";
-import MidSide from "../midSide/MidSide";
+
 
 function LeftSide  ({setStatus} ){
     const navigate = useNavigate();
@@ -63,6 +64,9 @@ function LeftSide  ({setStatus} ){
                             <FaSearch /> <p className="left-text">Search </p>
                         </li>
                         <li className="liX" onClick={playlist}><FaItunesNote /> <p className="left-text">Your Library </p></li>
+                        <li className="liX" onClick={handleSearchClick}>
+                            <IoMan /> <p className="left-text">Artist </p>
+                        </li>
                     </ul>
                 </nav>
             </div>

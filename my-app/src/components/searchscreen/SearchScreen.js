@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import SearchBar from "../searchBar/SearchBar";
-import TextField from "@mui/material/TextField";
-import { Provider } from 'react-redux';
 import store from "../store/store";
-import AudioPlayer from "../audioplayer/AudioPlayer";
 import api from "../../api/axiosConfig";
-import { useSelector } from 'react-redux';
-import ProfileComponent from "../profilecomponent/ProfileComponent";
 import jwt_decode from "jwt-decode";
-import midSide from "../midSide/MidSide.js";
 import "./searchscreem.css";
 const SearchScreen =()=>{
     const audioPlayerRef = store.getState().audioPlayerRef;
