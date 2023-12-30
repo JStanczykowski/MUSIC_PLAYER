@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Register.css';
 import jsf from "./JSIFY.png";
-
+import loginImg from "../login/loginImg.png";
 function Register({ setIsLoggedIn }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -14,7 +14,6 @@ function Register({ setIsLoggedIn }) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // Sprawdzenie poprawności danych
         if (password !== reapPwd) {
             setError('Passwords do not match');
             return;
@@ -25,7 +24,6 @@ function Register({ setIsLoggedIn }) {
             return;
         }
 
-        // Przykładowa walidacja dla loginu (ciągu znaków)
         if (!username.match(/^[a-zA-Z0-9]+$/)) {
             setError('Username should contain only letters and numbers');
             return;
@@ -45,15 +43,15 @@ function Register({ setIsLoggedIn }) {
             });
 
             if (response.ok) {
-                // User is registered successfully
+                navigate('/login');
                 setIsLoggedIn(true);
-                navigate('/dashboard');
+
             } else {
                 // Error registering user
                 console.log('Error registering user');
             }
         } catch (error) {
-            console.log(await error.text());
+            console.log(error);
         }
     };
 
@@ -72,8 +70,11 @@ function Register({ setIsLoggedIn }) {
                                     <div className="alert alert-danger" role="alert">
                                         {error}
                                     </div>)}
-                                <h3 className="fw-normal mb-3 pb-3">Register</h3>
+                                <h3 className="fw-normal mb-3 pb-">Register</h3>
                                 <div className="form-outline mb-4">
+                                    <label className="form-label" htmlFor="form2Example19">
+                                        E-mail
+                                    </label>
                                     <input
                                         type="email"
                                         id="form2Example19"
@@ -82,12 +83,13 @@ function Register({ setIsLoggedIn }) {
                                         onChange={(event) => setEmail(event.target.value)}
                                         required
                                     />
-                                    <label className="form-label" htmlFor="form2Example19">
-                                        Email
-                                    </label>
+
                                 </div>
 
                                 <div className="form-outline mb-3">
+                                    <label className="form-label" htmlFor="form2Example18">
+                                        Username
+                                    </label>
                                     <input
                                         type="text"
                                         id="form2Example18"
@@ -97,11 +99,12 @@ function Register({ setIsLoggedIn }) {
                                         onChange={(event) => setUsername(event.target.value)}
                                         required
                                     />
-                                    <label className="form-label" htmlFor="form2Example18">
-                                        UserName
-                                    </label>
+
                                 </div>
                                 <div className="form-outline mb-4">
+                                    <label className="form-label" htmlFor="form2Example28">
+                                        Password
+                                    </label>
                                     <input
                                         type="password"
                                         id="form2Example28"
@@ -110,11 +113,12 @@ function Register({ setIsLoggedIn }) {
                                         onChange={(event) => setPassword(event.target.value)}
                                         required
                                     />
-                                    <label className="form-label" htmlFor="form2Example28">
-                                        Password
-                                    </label>
+
                                 </div>
                                 <div className="form-outline mb-4">
+                                    <label className="form-label" htmlFor="form2Example29">
+                                        Repeat password
+                                    </label>
                                     <input
                                         type="password"
                                         id="form2Example29"
@@ -123,27 +127,23 @@ function Register({ setIsLoggedIn }) {
                                         onChange={(event) => setReapPwd(event.target.value)}
                                         required
                                     />
-                                    <label className="form-label" htmlFor="form2Example29">
-                                        Reapet Password
-                                    </label>
+
                                 </div>
                                 <div className="pt-1 mb-4">
-                                    <button className="btn btn-info btn-lg btn-block" type="submit">
+                                    <button className="btn btn-primary" id="submit-register" type="submit">
                                         Register
                                     </button>
-                                </div>
-                                <p>
 
-                                    <a href="/login" className="link-info">
-                                        Login
-                                    </a>
-                                </p>
+                                </div>
+                                <a  className="link-info" href="/login">
+                                    Login
+                                </a>
                             </form>
                         </div>
                     </div>
                     <div className="col-sm-6 px-0 d-none d-sm-block img-container">
                         <img
-                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img3.webp"
+                            src={loginImg}
                             alt="Login image"
                             className="w-100 vh-100"
                         />

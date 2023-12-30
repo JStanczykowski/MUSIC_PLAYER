@@ -1,0 +1,26 @@
+.message-left {
+    background-color: lightblue;
+    align-self: flex-start;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.message-right {
+    background-color: lightgreen;
+    align-self: flex-end;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.comment-form-button-reply {
+    font-size: 13px;
+    padding: 8px 16px;
+    background: rgb(59, 130, 246);
+    border-radius: 8px;
+    color: white;
+}
+.comment-form-button-reply:hover {
+    background: rgb(37, 99, 235);
+}

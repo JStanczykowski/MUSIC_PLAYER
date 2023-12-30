@@ -1,0 +1,72 @@
+.container-profile {
+    margin-bottom: 15%;
+    width: 35%;
+    height: 50%;
+    border-radius: 10%;
+    display: flex;
+}
+.information-text{
+    color:black;
+    margin-left: 8%;
+    margin-top: 10%;
+}
+.email-content-profile{
+    margin-left: 8%;
+    margin-top: 12%;
+}
+.left-side-profile {
+    background: rgb(186,14,219);
+    background: linear-gradient(90deg, rgba(186,14,219,1) 21%, rgba(255,0,142,1) 91%);
+    width: 37%;
+    height: 100%;
+    border-top-left-radius: 10%;
+    border-bottom-left-radius: 10%;
+}
+.username-edit-icon{
+    color:white;
+    margin-top: 5%;
+    margin-left: 45%;
+}
+.email-paragraph{
+    margin-top: 4%;
+    color: rgb(128, 128, 128);
+
+}
+.username-edit-icon:hover{
+    color:deepskyblue;
+    scale:1.05;
+}
+.right-side-profile {
+    background-color: white;
+    width: 63%;
+    height: 100%;
+    border-top-right-radius: 10%;
+    border-bottom-right-radius: 10%;
+}
+.username-text{
+    color:white;
+    margin-left: 24%;
+}
+#avatar-profil{
+    margin-left: 15%;
+    width: 70%;
+    height: 40%;
+}
+.social-context {
+    display: flex;
+    font-size: 27px;
+    align-items: center;
+}
+.icon-solo:hover{
+    color:deepskyblue;
+    scale:1.05;
+}
+.social-context > * {
+    margin-right: 10px;
+}
+
+
+.social-context:first-child {
+    margin-left: 0;
+}
+

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import jwt_decode from 'jwt-decode';
 import jsf from "./JSIFY.png";
+import loginImg from "./loginImg.png";
 function Login({ setIsLoggedIn }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -27,14 +28,15 @@ function Login({ setIsLoggedIn }) {
                 const data = await response.json();
                 const admin = ['ROLE_ADMIN'];
                 localStorage.setItem('accessToken', data.accessToken);
+                localStorage.setItem('emailUser',data.email);
+
                 const token = localStorage.getItem('accessToken');
                 const decodedToken = jwt_decode(data.accessToken);
-                console.log(data)
                 if (data.roles && Array.isArray(data.roles)) {
                     if (admin.every(role => data.roles.includes(role))) {
                         console.log("zgadza sie")
                         setIsLoggedIn(true);
-                        navigate('/admin');
+                        navigate('/admin/users');
                     } else {
                         if (data.active === false) {
                             alert('Nie możesz się zalogować, ponieważ Twoje konto jest nieaktywne.');
@@ -118,9 +120,9 @@ function Login({ setIsLoggedIn }) {
                     </div>
                     <div className="col-sm-6 px-0 d-none d-sm-block img-container">
                         <img
-                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img3.webp"
+                            src={loginImg}
                             alt="Login image"
-                            className="w-100 vh-100"
+                            className="loginimg"
                         />
                     </div>
                 </div>

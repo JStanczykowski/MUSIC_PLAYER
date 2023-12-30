@@ -1,9 +1,10 @@
-import React, {createContext, useContext, useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState} from 'react';
 import {useSelector, useDispatch, connect} from 'react-redux';
 import ReactAudioPlayer from 'react-audio-player';
 import { FaPlay, FaPause, FaStepBackward, FaStepForward } from 'react-icons/fa';
+import { FaArrowRotateLeft,FaArrowRotateRight,FaVolumeXmark   } from "react-icons/fa6";
 import './AudioPlayer.css';
-
+import alt from "../leftSide/alt_music.png";
 import store, {
     playTrack,
     pauseTrack,
@@ -192,12 +193,27 @@ const AudioPlayer = (props) => {
             }
         };
     }, [dispatch]);
+    const [volume2, setVolume2] = useState(1);
     const setVolume = (volume) => {
         const audioObj = store.getState().audioElement;
         if (audioObj) {
+            setVolume2(volume);
             audioObj.volume = volume/2;
         }
     }
+    const skipBackward = () => {
+        const audioObj = store.getState().audioElement;
+        if (audioObj) {
+            audioObj.currentTime -= 10; // Przewiń w tył o 10 sekund
+        }
+    };
+
+    const skipForward = () => {
+        const audioObj = store.getState().audioElement;
+        if (audioObj) {
+            audioObj.currentTime += 10; // Przewiń do przodu o 10 sekund
+        }
+    };
     //
     // const progressBarWidth = `${store.getState().currentTime / store.getState().duration* 100}%`;
     return (
@@ -208,6 +224,9 @@ const AudioPlayer = (props) => {
             </div>
             <div className="bar">
                 <div className="controls">
+                    <div className="arrow-button"   onClick={skipBackward}>
+                        <FaArrowRotateLeft />
+                    </div>
                     <div className="next-button"
                          onClick={playPrev}>
                         <FaStepBackward />
@@ -218,8 +237,12 @@ const AudioPlayer = (props) => {
                     <div className="next-button"  onClick={playNext}>
                         <FaStepForward />
                     </div>
+                    <div className="arrow-button"  onClick={skipForward}>
+                        <FaArrowRotateRight />
+                    </div>
                 </div>
                 <div className="progress-bar">
+
                     <div
                         className="progress-bar-fill"
                         id="progressBar"
@@ -252,6 +275,7 @@ const AudioPlayer = (props) => {
                         })
                     }
                 />
+                 <div className="volume-container"> <div className="next-button"   onClick={() => setVolume(0)}> <FaVolumeXmark/></div>
                 <input
                 className="volume"
                 type="range"
@@ -259,11 +283,14 @@ const AudioPlayer = (props) => {
                 max="1"
                 step="0.1"
                 defaultValue="1"
+                value={volume2}
                 onChange={(e) => setVolume(e.target.value)}
-                /></div>
+                /></div></div>
             )}
             <div className="muza">
-                <img src={store.getState().image} alt="xd" className="logomuza" />
+                {store.getState().image ?(<img src={store.getState().image} alt="logo"  className="logomuza" />):
+                    (<img src={alt} alt="logo" className="logomuza" />)}
+
             </div>
         </div>
     );

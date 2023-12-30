@@ -22,8 +22,7 @@
     background-color: rgb(221, 127, 211);
     width: 100vw;
     height: 89vh;
-    margin-left: 3%;
-    display: flex;
+
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -34,19 +33,25 @@
 }
 
 .imgStyle {
-    max-width: 90%;
-    margin-top: 10vh;
+    max-width: 50%;
+    margin-left: 2%;
     text-align: center;
-    margin-left: 7%;
+    border-radius: 5%;
 }
 
 .details {
     text-align: center;
+    margin-right: 70%;
+
 }
 
 .content {
-    position:relative;
-    top: 14%;
+    width: 50%;
+    margin-left: 45%;
+
+
+
+
 }
 
 h1 {
@@ -66,21 +71,14 @@ h2 {
     margin: 0;
 }
 
-.review-form {
-    margin-top: 50px;
-    width: 80%;
-}
-.reviewFormL{
-    margin-top: 5%;
-    margin-right: 35%;
-}
+
 .comments {
     text-align: center;
     width: 80%;
     bottom: -2%;
-    position: relative;
-    height: 80vh;
-    margin-top: 25%;
+
+    height: 100vh;
+
 
 }
 .review-body {
@@ -94,18 +92,14 @@ h2 {
     border:2px solid rgb(71,44,68);
     background-color: rgb(221, 127, 211);
     width: 25vw;
-    margin-left: 25%;
+
     height: auto;
     border-radius: 10px;
 
     padding: 10px;
 
 }
-.review-container {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 20px;
-}
+
 .review-user {
     display: flex;
     flex-direction: column;

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -45,6 +46,12 @@ public class MusicController {
     @CrossOrigin
     public ResponseEntity<Optional<Music>> getSingleMusic(@PathVariable ObjectId number){
         return new ResponseEntity<Optional<Music>>(musicService.singleMusicByID(number), HttpStatus.OK);
+    }
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN','MODER')")
+    @GetMapping("/artist")
+    @CrossOrigin
+    public Map<String, List<Music>> getSingleMusic(){
+        return musicService.fidArtis();
     }
     @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{id}")

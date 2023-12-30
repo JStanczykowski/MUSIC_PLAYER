@@ -5,3 +5,10 @@
 .vh-100{
     margin-bottom: -50%;
 }
+#submit-register{
+    background-color: #ea5cf7;
+}
+#submit-register:hover{
+    background-color: purple;
+    scale:1.01;
+}

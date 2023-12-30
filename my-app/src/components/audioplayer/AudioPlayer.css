@@ -42,7 +42,10 @@
     margin-left: 36%;
     margin-bottom: 0.7%;
 }
-
+.volume-container{
+    display: flex;
+    margin-right: 20px;
+}
 .prev-button,
 .next-button,
 .play-button,
@@ -58,10 +61,25 @@
     margin: 0 10px;
     transition: color 0.2s ease-in-out;
 }
+.arrow-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
 
+    cursor: pointer;
+    margin: 0 10px;
+    transition: color 0.2s ease-in-out;
+}
+.arrow-button:hover{
+    color:purple;
+}
 .prev-button:hover,
 .next-button:hover,
-.play-button:hover {
+.play-button:hover{
     color: #1db954;
 }
 .button-del:hover{
@@ -188,6 +206,9 @@
 }
 
 @media only screen and (max-width: 768px) {
+    .volume-container{
+        display: none;
+    }
     .volume {
         display: none;
     }
@@ -195,7 +216,9 @@
         width: 230px;
     }
     .controls{
-        margin-right: 65px;
+        margin-right: 155px;
+        margin-left: 70px;
+        scale: 0.8;
     }
 
     .current-time{

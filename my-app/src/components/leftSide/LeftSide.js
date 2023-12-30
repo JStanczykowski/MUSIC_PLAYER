@@ -6,7 +6,7 @@ import { SvgIcon } from '@mui/material';
 import { FaSearch,FaItunesNote,FaHome  } from 'react-icons/fa';
 import { IoMan } from "react-icons/io5";
 import {useNavigate} from "react-router-dom";
-
+import alt from "./alt_music.png";
 
 function LeftSide  ({setStatus} ){
     const navigate = useNavigate();
@@ -27,7 +27,10 @@ function LeftSide  ({setStatus} ){
         navigate('/app/playlist');
 
     }
+    const handleArtist = async (event)=>{
+        navigate('/app/artist');
 
+    }
 
     const handleSearchClick = async (event)=>{
         setStatus((prevStatus) => !prevStatus);
@@ -39,13 +42,10 @@ function LeftSide  ({setStatus} ){
             setImgSource(window.innerWidth <= 760 ? imgSmall : imgLarge);
         };
 
-        // Dodaj listener na zmianę rozmiaru ekranu
         window.addEventListener('resize', handleResize);
 
-        // Wywołaj handleResize, aby ustawić obraz przy załadowaniu strony
         handleResize();
 
-        // Usuń listener przy odmontowaniu komponentu
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -53,7 +53,7 @@ function LeftSide  ({setStatus} ){
     return(
         <div className="x">
             <div className="y">
-                <img src={imgSource} alt="xd" className="logo" />
+                <img src={imgSource} alt={alt} className="logo" />
             </div>
 
             <div className="z">
@@ -64,7 +64,7 @@ function LeftSide  ({setStatus} ){
                             <FaSearch /> <p className="left-text">Search </p>
                         </li>
                         <li className="liX" onClick={playlist}><FaItunesNote /> <p className="left-text">Your Library </p></li>
-                        <li className="liX" onClick={handleSearchClick}>
+                        <li className="liX" onClick={handleArtist}>
                             <IoMan /> <p className="left-text">Artist </p>
                         </li>
                     </ul>

@@ -7,6 +7,10 @@
     background-position: right center;
     background-size: auto 100%;
 }
+.loginimg{
+    width: 50vw;
+    height: 100vh;
+}
 .logoHe{
  margin-left: -7%;
 }

@@ -5,11 +5,30 @@ import ReviewForm from "../reviewForm/ReviewForm";
 import avatar from "./avatar.png";
 import { useLocation } from 'react-router-dom'
 import AudioPlayer from "../audioplayer/AudioPlayer";
-
+import Comments from "./comments/comments"
 import { Provider } from 'react-redux';
 import store from "../store/store";
 import ProfileComponent from "../profilecomponent/ProfileComponent";
 import jwt_decode from "jwt-decode";
+export const getMusicData = async (objectId,setMus,setReviews) => {
+    try {
+        const response = await api.get(`/api/v1/music/${objectId}`,{
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+            } });
+        const review = await api.get(`/api/v1/reviews/${objectId}`,{
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+            } });
+        const singleMusic = response.data;
+        setMus(singleMusic);
+        console.log(review.data)
+        setReviews(response.data.reviews);
+        return review.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
 function TestFile() {
     const location = useLocation()
     const title = location.state.title.X;
@@ -21,24 +40,10 @@ function TestFile() {
     const [mus, setMus] = useState();
     const [reviews, setReviews] = useState([]);
 
-    const getMusicData = async () => {
-        try {
-            const response = await api.get(`/api/v1/music/${objectId}`,{
-                headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
-                } });
-            const singleMusic = response.data;
-            setMus(singleMusic);
 
-            setReviews(response.data.reviews);
-
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
     useEffect(() => {
-        getMusicData();
+        getMusicData(objectId,setMus,setReviews);
     }, []);
     const token = localStorage.getItem('accessToken');
     const decodedToken = jwt_decode(token);
@@ -48,40 +53,16 @@ function TestFile() {
             <div className="wrapper">
                 {/*<ProfileComponent name={username}/>*/}
                 <div className="content">
+                    <div>
                     <img src={img} alt="xd" className="imgStyle" />
                     <div className="details">
                         <h1>{title}</h1>
                         <p>{artist}</p>
                     </div>
+                    </div>
+                <Comments currentUser={username} objectId={objectId}/>
+                </div>
 
-                </div>
-            <div className="reviewFormL">    <ReviewForm setReviews={setReviews} number={number} /></div>
-                <div className="review-comments-wrapper">
-                    <div className="comments">
-                        {mus && Array.isArray(mus.reviewIds) &&
-                            mus.reviewIds.map((review) => (
-                                <div className="review-body">
-                                    <img src={avatar} alt="avatar" />
-                                    <div className="review-user">
-                                        <p className="review-username" key={review.id.timestamp}>{review.owner}</p>
-                                        <p className="review-text" key={review.id.timestamp}>{review.body}</p>
-                                    </div>
-                                    <div className="review-likes">
-                                        <span className="like-counter">0</span>
-                                        <i className="fas fa-thumbs-up"></i>
-                                        <i className="fas fa-thumbs-down"></i>
-                                    </div>
-                                    <div className="review-buttons">
-                                        <button className="like-button">Like</button>
-                                        <button className="dislike-button">Dislike</button>
-                                    </div>
-                                </div>
-                            ))}
-                    </div>
-                    <div className="player">
-                        <AudioPlayer />
-                    </div>
-                </div>
             </div>
 
     );

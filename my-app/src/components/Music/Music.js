@@ -5,7 +5,7 @@ import {FaHeart, FaPlayCircle, FaPlusCircle} from "react-icons/fa";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import {useNavigate} from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-
+import "./music.css";
 const Music =()=>{
 
     const [music, setMusic] = useState([]);
@@ -59,7 +59,7 @@ const Music =()=>{
     };
 
     const back =async()=>{
-        navigate('/admin');
+        navigate('/admin/users');
     }
     useEffect(() => {
         getMusic();
@@ -69,7 +69,7 @@ const Music =()=>{
             <ArrowBackIcon onClick={()=>{
                 back();
             }}/>
-            <table className="table mb-0">
+            <table className="table mb-0" id="quick-repair">
                 <thead>
                 <tr>
                     <th scope="col">Image logo</th>

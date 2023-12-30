@@ -24,6 +24,7 @@ import Music from "./components/Music/Music";
 import Comment from "./components/comment/Comment";
 import AddMusic from "./components/addmusic/AddMusic";
 import ListMessage from "./components/listmessage/ListMessage";
+import Artist from "./components/artist/Artist";
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [currentStatus, setCurrentStatus] = useState(false);
@@ -52,18 +53,19 @@ function App() {
                     </div>}/>
                     <Route path="/app/message" element={<div className="glowny"><LeftSide/><Message/>
                  </div>}/>
+                    <Route path="/app/artist" element={<div className="glowny"><LeftSide/><Artist/>
+                    </div>}/>
                     <Route path="/app/:username" element={<div className="glowny"><LeftSide/><ProfileInfo/>
                     </div>}/>
                     <Route path="/app/playList/:id" element={<div className="glowny"><LeftSide/><PlayListSingle/>
                   </div>}/>
                     <Route path="/app/message/:username" element={<div className="glowny"><LeftSide/><InboxMess/>
                     </div>}/>
-                    <Route path="/admin" element={<div className="glowny"><AdminPanel/></div> }/>
-                    <Route path="/admin/add" element={<div className="glowny"><AddMusic/></div> }/>
-                    <Route path="/admin/users" element={<div className="glowny"><Users/></div> }/>
-                    <Route path="/admin/music" element={<div className="glowny"><Music/></div> }/>
-                    <Route path="/admin/music/comment" element={<div className="glowny"><Comment/></div> }/>
-                    <Route path="/admin/message" element={<div className="glowny"><ListMessage/></div> }/>
+                    <Route path="/admin/add" element={<div className="glowny"><AdminPanel/><AddMusic/></div> }/>
+                    <Route path="/admin/users" element={<div className="glowny"><AdminPanel/><Users/></div> }/>
+                    <Route path="/admin/music" element={<div className="glowny"><AdminPanel/><Music/></div> }/>
+                    <Route path="/admin/music/comment" element={<div className="glowny"><AdminPanel/><Comment/></div> }/>
+                    <Route path="/admin/message" element={<div className="glowny"><AdminPanel/><ListMessage/></div> }/>
                 </Routes></BrowserRouter></div>
                 {isLoggedIn && <AudioPlayer /> }
             </Provider>

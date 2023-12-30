@@ -1,14 +1,28 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import api from "../../api/axiosConfig";
 import "./ListMessage.css";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import ProfileComponent from "../profilecomponent/ProfileComponent";
+import jwt_decode from "jwt-decode";
 const ListMessage = () =>{
-    const [message,setMessage] = useState([]);
-    const getMess = async () => {
+    const [formValues, setFormValues] = useState({ title: '', message: '' });
+    const token = localStorage.getItem('accessToken');
+    const decodedToken = jwt_decode(token);
+    const username = decodedToken.sub;
+    const navigate = useNavigate();
+    const [message, setMessage] = useState([]);
+    const mess = async (event) => {
+        navigate('/app/message');
+    }
+
+    const inbox = async (event) => {
+        window.location.reload();
+    }
+    const getMessage = async () => {
         try {
             const response = await api.get("/api/v1/message",{
                 headers: {
@@ -21,95 +35,150 @@ const ListMessage = () =>{
             console.log('Error:', error);
         }
     };
-    const replyMess = async (id) => {
+    useEffect(() => {
+        getMessage();
+    }, []);
+    const replyComment = async (reply, id) => {
         try {
-            const response = await api.put(`/api/v1/message/${id}`, {reply:reply}, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+            const response = await api.put(
+                `/api/v1/message/${id}`,
+                { reply:reply,
+                    username:username},
+                {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+                    }
                 }
-            });
+            );
+            console.log('Wiadomość została wysłana!');
             if (response.status === 200) {
-                console.log("success reply ");
-                window.location.reload();
-            } else {
-                console.log('Error delete playlist');
+                console.log('działa');
+                getMessage();
+                // return response.data;
             }
         } catch (error) {
-            console.log(error);
+            console.log('Wiadomość nie została wysłana!', error);
+            throw error;
         }
-        console.log(id)
-    };
-
-
-    useEffect(() => {
-        getMess();
-
-    }, []);
-    const navigate = useNavigate();
-    const back =async()=>{
-        navigate('/admin');
     }
+    const [selectedMessage, setSelectedMessage] = useState(null);
+    const [isMessageShown, setIsMessageShown] = useState({});
 
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = (id) => {
-        setId(id);
-        setShow(true);
+    const toggleMessage = useCallback((messageId) => {
+        if (selectedMessage === messageId) {
+            setSelectedMessage(null);
+            setIsMessageShown(prevState => ({ ...prevState, [messageId]: false }));
+        } else {
+            setSelectedMessage(messageId);
+            setIsMessageShown(prevState => ({ ...prevState, [messageId]: true }));
+        }
+    }, [selectedMessage]);
+
+    const [selectedReply, setSelectedReply] = useState({});
+    const [isReplyShown, setIsReplyShown] = useState({});
+
+    const toggleReply = useCallback((messageId, replyId) => {
+        setIsReplyShown(prevState => ({
+            ...prevState,
+            [messageId]: { ...prevState[messageId], [replyId]: !prevState[messageId]?.[replyId] }
+        }));
+    }, []);
+    const onSubmit = (event, messageId) => {
+        event.preventDefault();
+
+        if (text.trim() !== "") {
+            replyComment(text, messageId)
+                .then((response) => {
+                    console.log("Wiadomość została wysłana!", response);
+                    // inbox();
+
+                })
+                .catch((error) => {
+                    console.log("Wiadomość nie została wysłana!", error);
+
+                });
+        } else {
+            console.log("Tekst odpowiedzi jest pusty!");
+
+        }
+        setText("");
     };
-    const [reply, setReply] = useState('');
-    const [id, setId] = useState('');
-    return(
-        <div className="xd2" ><div className="container2">
-            <ArrowBackIcon onClick={()=>{
-                back();
-            }}/>
-            <Modal show={show} onHide={handleClose}>
+    const [text, setText] = useState("");
 
-                <Modal.Header closeButton>
-                    <Modal.Title>Form to reply to the message</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form onSubmit={(e) => { e.preventDefault(); replyMess(id); }}>
-                        <Form.Group className="mb-2" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Reply to the message</Form.Label>
-                            <Form.Control
-                                className="contentClassName"
-                                type="text"
-                                placeholder="Enter name"
-                                style={{ width: '450px', height: '80px', margin: '5px 5px 5px 5px' }}
-                                value={reply}
-                                onChange={(e) => setReply(e.target.value)}
-                                autoFocus
-                            />
-                            <small id="emailHelp" className="form-text text-muted">Make sure that the message makes sense.</small>
-                            <Button variant="primary" type="submit">
-                                Submit
-                            </Button>
-                        </Form.Group>
-                    </Form>
+    const renderMessageContent = (msg) => {
+        console.log(msg);
+        const createAt = new Date(msg.createAt);
+        const isTextAreaVisible = text.length === 0;
+        const formattedDate = `${createAt.getDate().toString().padStart(2, '0')}-${
+            (createAt.getMonth() + 1).toString().padStart(2, '0')
+        }-${createAt.getFullYear()}`;
+        return (
+            <div>
+                <div className={msg.username === username ? "message-left" : "message-right"}>
+                    <h2>{msg.username}</h2>
+                    <h4>{msg.title}</h4>
+                    <p>{msg.messageBody}</p>
+                    {isReplyNotEmpty(msg.reply) && (
+                        <div>
+                            <button className="comment-form-button-reply" onClick={() => toggleReply(msg.id, "reply")}>
+                                Show Reply
+                            </button>
+                        </div>
+                    )}
+                </div>
+                {isReplyNotEmpty(msg.reply) && isReplyShown[msg.id]?.["reply"] && (
+                    msg.reply.map((reply, index) => (
+                        <div key={index} className={reply.username === username ? "message-left" : "message-right"}>
+                            <h2>{reply.username}</h2>
+                            <p>{reply.messageBody}</p>
+                        </div>
+                    ))
+                )}
+                {isReplyShown[msg.id]?.["reply"] && (
+                    <form onSubmit={(event) => onSubmit(event, msg.id)} className="comment-form-review">
+                        <textarea
+                            className="comment-form-textarea"
+                            value={text}
+                            placeholder="Enter the message"
+                            onChange={(e) => setText(e.target.value)}
+                        />
+                        <button className="comment-form-button" type="submit">Send</button>
+                        <button
+                            type="button"
+                            className="comment-form-cancel-button"
+                            onClick={() => toggleReply(msg.id, "reply")}
+                        >
+                            Cancel
+                        </button>
+                    </form>
+                )}
+            </div>
+        );
+    };
 
-                </Modal.Body>
-                <Modal.Footer>
+    const isReplyNotEmpty = (reply) => {
+        return reply && reply.length > 0;
+    };
 
-                </Modal.Footer>
-            </Modal>
-                {message.map((mess)=>{
-                    return(<div>
-                            <h1 key={mess.id}>Username: {mess.username}</h1>
-                            <h2 key={mess.id}>Title: {mess.title}</h2>
-                            <p key={mess.id}>Message Body: <br/>
-                                {mess.messageBody}</p>
+    return (
+        <div className="fullContainer">
 
-                                <button type="button" className="btn btn-success"
-                                        onClick={()=>{
-                                            handleShow(mess.id);
-                                        }}>Odpowiedz</button>
+            <div className="xd">
+                <div>
+                    {message.map((messa, index) => {
 
-                            </div>
-                        )
-                })}
-         </div>
+                        if (messa.active === "true") {
+                            return (
+                                <div key={index}>
+                                    {renderMessageContent(messa)}
+                                </div>
+                            );
+                        }
+                        return null;
+                    })}
+                </div>
+            </div>
+            <div className="player"></div>
         </div>
     )
 }

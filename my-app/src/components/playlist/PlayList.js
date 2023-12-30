@@ -14,6 +14,31 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import ProfileComponent from "../profilecomponent/ProfileComponent";
+export const createPlayListApi = async (name, username) => {
+    try {
+        const response = await fetch('http://localhost:8080/api/v1/playlist', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+            },
+            body: JSON.stringify({
+                name: name,
+                username: username
+            }),
+        });
+
+        if (response.ok) {
+            console.log('PlayList created successfully!');
+            return response.data; // Możesz zwrócić dane playlisy, jeśli potrzebujesz
+        } else {
+            console.log('Error creating playlist');
+        }
+    } catch (error) {
+        console.log('An error occurred while creating playlist:', error);
+        throw error; // Rzuć błąd, aby móc go obsłużyć w komponencie
+    }
+};
 function PlayList(props) {
     const navigate = useNavigate();
     const [playlistApi, setPlayList] = useState([]);
@@ -22,6 +47,7 @@ function PlayList(props) {
     const username = decodedToken.sub;
     const [isDeleted, setIsDeleted] = useState(false);
     const [isCreate, setCreate] = useState(true);
+
     const getPlaylist = async () => {
         try {
             const response = await api.get(`/api/v1/playlist/names/${username}`, {
@@ -50,6 +76,7 @@ function PlayList(props) {
 
     const deletePlayList = async (idPlayList) => {
         const idPar = idPlayList;
+
         try {
             const response = await api.delete(`/api/v1/playlist/${idPar}/deletePlayList`, {
                 headers: {
@@ -89,6 +116,8 @@ function PlayList(props) {
     const dispatch = useDispatch();
     const index = useSelector((state)=>state.index);
     const table = useSelector((state)=>state.playlist);
+    const [isCreating, setIsCreating] = useState(false);
+
     useEffect(() => {
         try {
             // const image = require(`../../musicElement/png/${table[index].plik}.png`);
@@ -118,7 +147,22 @@ function PlayList(props) {
             console.log('Error:', error);
         }
     };
+    const handleCreatePlayList= () => {
+        try {
+            // Wywołanie funkcji createPlayListApi
+            createPlayListApi(name, username).then(getPlaylist);
+            handleClose();
+            // Tu możesz dodać logikę po utworzeniu playlisty, np. odświeżenie listy playlist, aktualizację stanu itp.
+            console.log('PlayList created successfully!');
+        } catch (error) {
+            console.error('An error occurred while creating playlist:', error);
+            // Tutaj możesz obsłużyć błąd, np. wyświetlając komunikat dla użytkownika
+        }
+    };
+
     const CreatePlayList = async () => {
+        setIsCreating(true);
+
         try {
             const response = await fetch('http://localhost:8080/api/v1/playlist', {
                 method: 'POST',
@@ -129,22 +173,28 @@ function PlayList(props) {
                 body: JSON.stringify({
                     name: name,
                     username: username,
-
                 }),
             });
 
             if (response.ok) {
-
                 setCreate(true);
+                setIsCreating(false);
+                setIsDeleted(false); // Usunięcie komunikatu o sukcesie po utworzeniu nowej playlisty
 
+                // Pobranie zaktualizowanej listy playlist bez odświeżania strony
+                getPlaylist();
+
+                alert('Playlist created successfully!'); // Dodanie komunikatu
             } else {
-
+                setIsCreating(false);
                 console.log('Error create playlist');
             }
         } catch (error) {
+            setIsCreating(false);
             console.log(await error.text());
         }
     };
+
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     return(
@@ -162,7 +212,7 @@ function PlayList(props) {
                                 <Modal.Title>Form for creating a new playlist</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                                <Form onSubmit={CreatePlayList}>
+                                <Form onSubmit={handleCreatePlayList}>
                                     <Form.Group className="mb-2" controlId="exampleForm.ControlInput1">
                                         <Form.Label>Name the PlayList</Form.Label>
                                         <Form.Control
@@ -220,9 +270,7 @@ function PlayList(props) {
                         ))}
                     </div>
                 </div>
-                <div className="player">
 
-                </div>
 
             </div>
 

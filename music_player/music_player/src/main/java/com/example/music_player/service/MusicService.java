@@ -17,6 +17,21 @@ public class MusicService {
 
     public List<Music> findAllMusic() {return musicRepository.findAll();}
 
+    public Map<String, List<Music>> fidArtis() {
+        List<Music> musicList = getAllMusicPersonal();
+        Map<String, List<Music>> listMap = new HashMap<>();
+
+        for (Music music : musicList) {
+            String artist = music.getArtysta();
+            if (!listMap.containsKey(artist)) {
+                listMap.put(artist, new ArrayList<>());
+            }
+            listMap.get(artist).add(music);
+        }
+
+        return listMap;
+    }
+
     public List<Music> getAllMusicPersonal(){
         List<Music> musicList = findAllMusic();
         List<Music> musicDTOList = musicList.stream()

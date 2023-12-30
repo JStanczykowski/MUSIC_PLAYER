@@ -49,10 +49,10 @@ const ProfileComponent = (props) => {
                 title={isVisible ? props.name : null}
             >
                 <NavDropdown.Item onClick={() => profile()}>Profil</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Ustawienia</NavDropdown.Item>
-                <NavDropdown.Item onClick={() => wsparcie()}>Wsparcia</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => wsparcie()}>Support</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item onClick={() => logOut()}>Wyloguj</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => logOut()}>Logout</NavDropdown.Item>
             </NavDropdown>
         </div>
     );

@@ -59,7 +59,9 @@ const Message=(props)=>{
     const inbox = async (event)=>{
         navigate(`/app/message/${username}`);
     }
-
+    const handleClear = () => {
+        setFormValues({ title: '', message: '' }); // Funkcja czyszcząca pola formularza
+    };
     return(
 
         <div className="fullContainer"><ProfileComponent name={username}/>
@@ -87,7 +89,7 @@ const Message=(props)=>{
                                    required/>
                         </div>
                         <div className="form-group4">
-                            <label htmlFor="exampleFormControlTextarea1">Example textarea</label>
+                            <label htmlFor="exampleFormControlTextarea1">Text area for message to admin</label>
                             <textarea className="form-control" id="exampleFormControlTextarea1" rows="4"
                                       value={formValues.message}
                                       onChange={(event) =>
@@ -100,6 +102,10 @@ const Message=(props)=>{
                             <button className="btn btn-info btn-lg btn-block" type="submit">
                                 Send
                             </button>
+
+                            <button className="btn btn-danger btn-lg btn-block" type="clear" onClick={handleClear}>
+                                Clear
+                        </button>
                         </div>
                     </form>
                     </div>

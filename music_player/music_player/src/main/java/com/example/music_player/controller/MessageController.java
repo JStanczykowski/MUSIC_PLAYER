@@ -2,7 +2,6 @@ package com.example.music_player.controller;
 
 
 import com.example.music_player.model.Message;
-import com.example.music_player.repository.MessageRepository;
 import com.example.music_player.service.MessageService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,20 +33,20 @@ public class MessageController {
             @PreAuthorize("hasAnyRole('USER','ADMIN','MODER')")
             @GetMapping("/{username}")
             @CrossOrigin(origins = "*", allowedHeaders = "*")
-            public List<Message> getMessageByUsername(@PathVariable String username){
+            public List<Map<String, Object>> getMessageByUsername(@PathVariable String username){
                 return messageService.findMessByUsername(username);
 
             }
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public List<Map<String, String>> getAllMessage(){
+    public List<Map<String, Object>> getAllMessage(){
         return messageService.getAllMessage();
     }
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN','MODER')")
     @PutMapping("/{id}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public void replyMessage(@PathVariable ObjectId id,@RequestBody Map<String, String> payload) throws ChangeSetPersister.NotFoundException {
-         messageService.replyMessage(id,payload.get("reply"));
+         messageService.replyMessage(id,payload.get("reply"),payload.get("username"));
             }
 }

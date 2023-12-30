@@ -10,7 +10,7 @@
     background-color: rgb(221,127,211);
     position: relative;
 
-    overflow: auto;
+    overflow: hidden;
 }
 
 .shadow-1-strong{
