@@ -46,10 +46,9 @@ public class MusicService {
             musicList.addAll(musicsByGenre);
         }
 
-        List<Music> musicDTOList = musicList.stream()
+        return musicList.stream()
                 .map(m -> new Music(m.getId(), m.getNumber(), m.getTytul(), m.getArtysta(), m.getPlik(), m.getZdjecie(), m.getGenre()))
                 .collect(Collectors.toList());
-        return musicDTOList;
     }
 
     public Optional<Music> singleMusic(java.lang.String number){
