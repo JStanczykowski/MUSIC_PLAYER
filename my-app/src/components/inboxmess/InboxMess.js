@@ -142,12 +142,14 @@ const InboxMess=(props)=>{
                         <textarea
                             className="comment-form-textarea"
                             value={text}
+                            id="textarea-inbox-down"
                             placeholder="Enter the message"
                             onChange={(e) => setText(e.target.value)}
                         />
-                        <button className="comment-form-button" type="submit">Send</button>
+                        <button className="comment-form-button" id="button-inbox-down" type="submit">Send</button>
                         <button
                             type="button"
+                            id="button-inbox-down"
                             className="comment-form-cancel-button"
                             onClick={() => toggleReply(msg.id, "reply")}
                         >
@@ -167,7 +169,7 @@ const InboxMess=(props)=>{
         <div className="fullContainer">
             <ProfileComponent name={username} />
             <div className="xd">
-                <div>
+                <div className="button-inbox">
                     <button type="button" className="btn btn-outline-primary btn-lg" onClick={mess}>
                         Send message
                     </button>

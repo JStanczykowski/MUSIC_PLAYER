@@ -65,7 +65,6 @@ const SearchScreen =()=>{
                                 <option value="rock">Rock</option>
                                 <option value="pop">Pop</option>
                                 <option value="hip-hop">Hip Hop</option>
-                                {/* Dodaj więcej opcji według potrzeb */}
                             </select>
                         </label>
                         <button type="submit">Wyślij</button>

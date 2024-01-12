@@ -11,6 +11,7 @@ import store from "../store/store";
 import ProfileComponent from "../profilecomponent/ProfileComponent";
 import jwt_decode from "jwt-decode";
 export const getMusicData = async (objectId,setMus,setReviews) => {
+
     try {
         const response = await api.get(`/api/v1/music/${objectId}`,{
             headers: {

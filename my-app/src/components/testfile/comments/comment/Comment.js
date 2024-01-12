@@ -3,13 +3,19 @@ import CommentForm from "../CommentForm";
 import {createCommentApi} from "../comments";
 import {useState} from "react";
 import "../comments.css";
+import jwt_decode from "jwt-decode";
 
 const Comment = ({ comment, replies,currentUserId,deleteComment,activeComment,setActiveComment,addComment,parentId= null ,updateComment}) => {
     const fiveMinutes = 300000;
+    const token = localStorage.getItem('accessToken');
+    const decodedToken = jwt_decode(token);
+    const username = decodedToken.sub;
+    const isAdmin = username === 'admin'; // Sprawdzenie czy użytkownik to admin
+
     const timePassed = new Date() - new Date(comment.createAt)>fiveMinutes;
     const canReply = Boolean(currentUserId);
-    const canEdit = currentUserId === comment.owner && !timePassed;
-    const canDelete = currentUserId === comment.owner && !timePassed;
+    const canEdit = (currentUserId === comment.owner && !timePassed) || isAdmin;
+    const canDelete = (currentUserId === comment.owner && !timePassed) || isAdmin;
     const createAt = new Date(comment.createAt).toLocaleDateString();
     const isAllowed = comment.parentId.size!=0;
     const isReplying =

@@ -2,8 +2,19 @@
     color:white;
 
 }
-#xdd{
+#artist-table{
     margin-bottom: 200px;
     width: 50%;
     font-size: 1.2em;
+}
+
+@media only screen and (max-width: 768px) {
+    #artist-table{
+        margin-left: 20px;
+        width: 20%;
+        font-size: 1em;
+    }
+    .pagination-container{
+      margin-bottom: 50px;
+    }
 }

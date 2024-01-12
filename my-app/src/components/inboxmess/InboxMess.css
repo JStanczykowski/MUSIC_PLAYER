@@ -24,3 +24,24 @@
 .comment-form-button-reply:hover {
     background: rgb(37, 99, 235);
 }
+@media only screen and (max-width: 768px) {
+    .message-right{
+        width: 80%;
+        margin-left: 75px;
+    }
+    .message-left{
+        width: 80%;
+        margin-left: 75px;
+
+    }
+    .button-inbox{
+        margin-left: 75px;
+    }
+    #textarea-inbox-down{
+        margin-left: 73px;
+        width: 83%;
+    }
+    #button-inbox-down{
+        margin-left: 73px;
+    }
+}

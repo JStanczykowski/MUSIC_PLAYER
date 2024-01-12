@@ -1,0 +1,76 @@
+.form-add-music {
+    margin-left: 20%;
+    margin-top: 40%;
+    background-color: white;
+    width: 40%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5%;
+}
+
+.input-group label {
+    margin-bottom: 5px;
+}
+
+#input-add-music {
+
+    width: 60%;
+    height: 50px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    margin-top: 10px;
+    margin-left: 25%;
+}
+
+.button-group button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button-group button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+}
+
+.button-group button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.button-group button[type="button"] {
+    background-color: #dc3545;
+    color: white;
+}
+
+.button-group button[type="button"]:hover {
+    background-color: #bd2130;
+}
+@media only screen and (max-width: 768px) {
+    #input-add-music{
+       width: 90%;
+    }
+    .form-add-music{
+        width: 76%;
+
+    }
+    .button-group{
+        gap: 20px
+    }
+
+}

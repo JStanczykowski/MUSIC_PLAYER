@@ -40,7 +40,6 @@ const AudioPlayer = (props) => {
                 store.getState().audioElement.currentTime = 0;
             }
             const audioUrl = `https://www.googleapis.com/drive/v3/files/${store.getState().audioS}?alt=media&key=AIzaSyCwAwTjI4pVK7FbxdAiH-xUWPzDGXDcnc4&v=.mp3`;
-            // const audio = new Audio(require(`../../musicElement/mp3/${store.getState().audioS}.mp3`));
             const audio = new Audio(audioUrl);
             console.log("audio: "+audioUrl);
             console.log("audioS: "+store.getState().audioS);
@@ -83,6 +82,7 @@ const AudioPlayer = (props) => {
             dispatch(setIndex(currentIndex+1));
 
             const image = `https://drive.google.com/uc?id=${table[index+1].zdjecie}`;
+
             dispatch(playTrack(table[index+1].tytul, table[index+1].artysta, table[index+1].plik, image));
         } else {
             dispatch(setIndex(0));
@@ -132,12 +132,11 @@ const AudioPlayer = (props) => {
             store.getState().audioElement.currentTime = 0;
         }
         localStorage.setItem('isPlaying', 'false');
-        // const image = require(`../../musicElement/png/${table[index].plik}.png`);
         const image = `https://drive.google.com/uc?id=${table[index].zdjecie}`;
+        console.log("image"+image);
         dispatch(playTrack(table[index].tytul, table[index].artysta, table[index].plik, image));
         dispatch(setAudioPlayerRef(audioPlayerRef));
         const audioObj = store.getState().audioElement;
-        console.log(store.getState().audioElement.currentTime)
 
         if (audioObj) {
             // Set the playback position before playing
@@ -255,7 +254,6 @@ const AudioPlayer = (props) => {
             {audioObj && (
                 <div>
                 <ReactAudioPlayer
-
                     ref={audioPlayerRef}
                     src={store.getState().audioElement}
                     onEnded={handleStop}
@@ -267,7 +265,6 @@ const AudioPlayer = (props) => {
                             payload: store.getState().audioElement.currentTime,
                         })
                     }
-
                     onLoadedMetadata={() =>
                         dispatch({
                             type: 'SET_DURATION',

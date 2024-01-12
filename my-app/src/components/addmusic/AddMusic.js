@@ -1,110 +1,139 @@
 import React, {useEffect, useState} from 'react';
-
-const CLIENT_ID = '961838173429-idai5tfflf8vkd1oojua97qh2nbq8695.apps.googleusercontent.com';
-const API_KEY = 'AIzaSyAsr6U6z-L5C-KxD2ZZESE_XxlDNpRmBwM';
-const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
-const SCOPES = 'https://www.googleapis.com/auth/drive.file';
-
-const useGoogleApi = (handleClientLoad) => {
-    useEffect(() => {
-        const script = document.createElement('script');
-        script.src = 'https://apis.google.com/js/api.js';
-        script.onload = () => handleClientLoad();
-        document.body.appendChild(script);
-    }, [handleClientLoad]);
-};
-
+import "./AddMusic.css"
+import api from "../../api/axiosConfig";
 const AddMusic = () => {
 
-    const handleClientLoad = () => {
-        window.gapi.load('client:auth2', initClient);
-    }
+    const [formData, setFormData] = useState({
+        title: "",
+        artist: "",
+        picture: "",
+        file: "",
+        genre: "rap",
+    });
 
-    const initClient = () => {
-        window.gapi.client.init({
-            apiKey: API_KEY,
-            clientId: CLIENT_ID,
-            discoveryDocs: DISCOVERY_DOCS,
-            scope: SCOPES
-        }).then(() => {
-            console.log('Google API initialized');
-        }).catch((error) => {
-            console.log('Error initializing Google API', error);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
         });
     };
 
-    useGoogleApi(handleClientLoad);
-    const [isPlaying, setIsPlaying] = useState(false);
-    const audioRef = React.createRef();
-
-    const audioUrl = 'https://www.googleapis.com/drive/v3/files/1iRct9k7Tba5RuWxvRNDFC-IVflfqqYsV?alt=media&key=AIzaSyCwAwTjI4pVK7FbxdAiH-xUWPzDGXDcnc4&v=.mp3';
-
-    const playMusic = () => {
-        if (isPlaying) {
-            audioRef.current.pause();
-        } else {
-            audioRef.current.play();
-        }
-        setIsPlaying(!isPlaying);
-    };
-    const uploadFile = async () => {
-        const file = document.getElementById('file').files[0];
-        const metadata = {
-            name: file.name,
-            mimeType: file.type
-        };
-        const accessToken = window.gapi.auth.getToken().access_token;
-        const headers = new Headers();
-        headers.append('Authorization', `Bearer ${accessToken}`);
-        headers.append('Content-Type', 'application/json');
-
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
-            const response = await fetch(`https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id`, {
+            const response = await fetch('http://localhost:8080/api/v1/music', {
                 method: 'POST',
-                headers: headers,
-                body: JSON.stringify(metadata)
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                },
+
+                body: JSON.stringify({
+                    title: formData.title,
+                    artist: formData.artist,
+                    file: formData.file,
+                    picture: formData.picture,
+                    genre: formData.genre
+                }),
             });
 
-            const data = await response.json();
-            const id = data.id;
+            if (response.ok) {
+                console.log("succes")
 
-            const fr = new FileReader();
-            fr.onload = async () => {
-                const media = {
-                    mimeType: file.type,
-                    body: fr.result
-                };
-                const headers = new Headers();
-                headers.append('Authorization', `Bearer ${accessToken}`);
-                headers.append('Content-Type', file.type);
+            } else {
 
-                try {
-                    const response = await fetch(`https://www.googleapis.com/upload/drive/v3/files/${id}?uploadType=media`, {
-                        method: 'PATCH',
-                        headers: headers,
-                        body: media.body
-                    });
-                    console.log(`File ${file.name} uploaded to Google Drive. File ID: ${id}`);
-                } catch (error) {
-                    console.log('Error uploading file to Google Drive', error);
-                }
-            };
-            fr.readAsArrayBuffer(file);
+                console.log('Error registering user ' + response.type);
+            }
         } catch (error) {
-            console.log('Error creating file in Google Drive', error);
+            console.log('Wystąpił błąd podczas dodawania komentarza:', error);
         }
+        console.log(formData);
+        setFormData({
+            title: "",
+            artist: "",
+            picture: "",
+            file: "",
+            genre: "rap",
+        });
+    };
+
+    const handleClear = () => {
+        setFormData({
+            title: "",
+            artist: "",
+            picture: "",
+            file: "",
+            genre: "rap",
+        });
     };
 
     return (
-        <div>
-            <h1>Upload File to Google Drive</h1>
-            <input type="file" id="file" />
-            <button onClick={uploadFile}>Upload</button>
-            <img src="https://drive.google.com/uc?id=1IzelAnjKsDPtBv6DcDJjluhkPwZVCfTn" />
-
-            <div>
-                <button onClick={playMusic}>{isPlaying ? 'Pause' : 'Play'}</button>
-                <audio ref={audioRef} src={audioUrl} />
+        <div className="fullContainer">
+            <div className="xd">
+                <form className="form-add-music" onSubmit={handleSubmit}>
+                    <div className="input-group">
+                        <label>Title:</label>
+                        <input
+                            type="text"
+                            name="title"
+                            value={formData.title}
+                            onChange={handleChange}
+                            id="input-add-music"
+                            required
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label>Artist:</label>
+                        <input
+                            type="text"
+                            name="artist"
+                            value={formData.artist}
+                            onChange={handleChange}
+                            id="input-add-music"
+                            required
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label>Picture:</label>
+                        <input
+                            type="text"
+                            name="picture"
+                            value={formData.picture}
+                            onChange={handleChange}
+                            id="input-add-music"
+                            required
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label>File:</label>
+                        <input
+                            type="text"
+                            name="file"
+                            value={formData.file}
+                            onChange={handleChange}
+                            id="input-add-music"
+                            required
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label>Genre:</label>
+                        <select
+                            name="genre"
+                            value={formData.genre}
+                            onChange={handleChange}
+                            id="input-add-music"
+                        >
+                            <option value="rap">Rap</option>
+                            <option value="pop">Pop</option>
+                            <option value="hiphop">Hip Hop</option>
+                        </select>
+                    </div>
+                    <div className="button-group">
+                        <button type="submit">Submit</button>
+                        <button type="button" onClick={handleClear}>Clear</button>
+                    </div>
+                </form>
             </div>
         </div>
     );

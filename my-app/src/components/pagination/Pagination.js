@@ -55,7 +55,6 @@ function Pagination({ music, setMusic, username, playlistApi,searchState }) {
         return LogoSrc;
     }
     const getMusic = async () => {
-        console.log('Wartość searchState:', searchState);
         try {
             const response = await api.get("/api/v1/music",{
                 headers: {
@@ -109,8 +108,6 @@ function Pagination({ music, setMusic, username, playlistApi,searchState }) {
 
     function handleClick(id) {
         try {
-            // const image = `https://drive.google.com/uc?id=${table[index].zdjecie}`;
-            // dispatch(playTrack(table[index].tytul, table[index].artysta, table[index].plik, image));
             dispatch({
                 type: 'CURRENT_PLAYLIST',
                 payload: {
@@ -118,11 +115,6 @@ function Pagination({ music, setMusic, username, playlistApi,searchState }) {
                     element: id
                 }
             });
-            const audioObj = store.getState().audioElement;
-            // if (audioObj) {
-            //     audioObj.play();
-            // }
-            console.log(store.getState());
         }
         catch (error){
             console.log(error);
@@ -203,7 +195,6 @@ function Pagination({ music, setMusic, username, playlistApi,searchState }) {
                                         handleClickTwo(song)
                                     }} className="button"/>
                                 </td>
-                                {/*<FaPlusCircle className="button" />*/}
                                 <td className="align-middle"
                                     id="alignMid">
                                     <NavDropdown   id="nav-dropdown-dark-example"

@@ -20,7 +20,7 @@ function ModalAdvancedSearch(props) {
     const username = decodedToken.sub;
     const [selectedGenre, setSelectedGenre] = useState('');
     const [response, setResponse] = useState(null);
-    const [fullMusicData, setFullMusicData] = useState([]); // Dodanie stanu do przechowywania pełnych danych muzycznych
+    const [fullMusicData, setFullMusicData] = useState([]);
 
     const handleGenreChange = (event) => {
         setSelectedGenre(event.target.value);
@@ -44,7 +44,6 @@ function ModalAdvancedSearch(props) {
             if (response && response.data) {
                 let filteredMusicData = response.data;
 
-                // Jeśli wprowadzono frazę do filtra, stosujemy filtrację po tytule i wykonawcy
                 if (filter) {
                     filteredMusicData = response.data.filter((item) => {
                         const formattedTitle = `${item.artysta.toLowerCase()} ${item.tytul.toLowerCase()}`;
@@ -66,7 +65,6 @@ function ModalAdvancedSearch(props) {
     useEffect(() => {
         setShow(props.setShow);
 
-        // Wywołanie logiki filtrowania po zmianie danych muzycznych
         let filteredMusicData = fullMusicData;
         if (filter) {
             filteredMusicData = fullMusicData.filter((item) => {
@@ -116,7 +114,6 @@ function ModalAdvancedSearch(props) {
                         </Button>
                     </Form>
                 </Modal.Body>
-                <Modal.Footer>{/* Dodaj dowolne treści do stopki modalu */}</Modal.Footer>
             </Modal></>
     )
 

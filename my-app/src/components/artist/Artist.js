@@ -89,7 +89,7 @@ const Artist = () => {
         <div className="fullContainer">
             <ProfileComponent name={username} />
             <div className="xd">
-                <table className="table table-striped table-dark" id="xdd">
+                <table className="table table-striped table-dark" id="artist-table">
                     <thead>
                     <tr>
                         <th scope="col">Artist name</th>

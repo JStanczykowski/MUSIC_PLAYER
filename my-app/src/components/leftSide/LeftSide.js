@@ -34,7 +34,6 @@ function LeftSide  ({setStatus} ){
 
     const handleSearchClick = async (event)=>{
         setStatus((prevStatus) => !prevStatus);
-
     }
     const [imgSource, setImgSource] = useState(imgLarge);
     useEffect(() => {

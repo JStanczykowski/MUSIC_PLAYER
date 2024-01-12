@@ -64,7 +64,7 @@ function App() {
                     <Route path="/admin/add" element={<div className="glowny"><AdminPanel/><AddMusic/></div> }/>
                     <Route path="/admin/users" element={<div className="glowny"><AdminPanel/><Users/></div> }/>
                     <Route path="/admin/music" element={<div className="glowny"><AdminPanel/><Music/></div> }/>
-                    <Route path="/admin/music/comment" element={<div className="glowny"><AdminPanel/><Comment/></div> }/>
+                    <Route path="/admin/music/comment" element={<div className="glowny"><AdminPanel/><Reviews/></div> }/>
                     <Route path="/admin/message" element={<div className="glowny"><AdminPanel/><ListMessage/></div> }/>
                 </Routes></BrowserRouter></div>
                 {isLoggedIn && <AudioPlayer /> }

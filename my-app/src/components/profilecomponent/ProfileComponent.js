@@ -48,7 +48,7 @@ const ProfileComponent = (props) => {
                 className="navdropProf"
                 title={isVisible ? props.name : null}
             >
-                <NavDropdown.Item onClick={() => profile()}>Profil</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => profile()}>Profile</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
                 <NavDropdown.Item onClick={() => wsparcie()}>Support</NavDropdown.Item>
                 <NavDropdown.Divider />

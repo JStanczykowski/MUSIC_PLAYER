@@ -3,7 +3,6 @@ package com.example.music_player.service;
 import com.example.music_player.model.Music;
 import com.example.music_player.repository.MusicRepository;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -12,8 +11,12 @@ import java.util.stream.Collectors;
 @Service
 public class MusicService {
 
-    @Autowired
-    private MusicRepository musicRepository;
+
+    private final MusicRepository musicRepository;
+
+    public MusicService(MusicRepository musicRepository) {
+        this.musicRepository = musicRepository;
+    }
 
     public List<Music> findAllMusic() {return musicRepository.findAll();}
 
@@ -31,13 +34,24 @@ public class MusicService {
 
         return listMap;
     }
+    public void addMusic(String artist, String file, String picture, String title, String genre){
+        List<Music> musicList= findAllMusic();
+        int max = 0;
+        for (Music music: musicList
+             ) {
+           if(Integer.parseInt(music.getNumber())>max) max = Integer.parseInt(music.getNumber());
 
+        }
+        int number = max+1;
+
+        Music music = new Music(String.valueOf(number),title,artist,picture,file,genre);
+        musicRepository.save(music);
+    }
     public List<Music> getAllMusicPersonal(){
         List<Music> musicList = findAllMusic();
-        List<Music> musicDTOList = musicList.stream()
+        return musicList.stream()
                 .map(m -> new Music(m.getId(), m.getNumber(), m.getTytul(), m.getArtysta(), m.getPlik(),m.getZdjecie(),m.getGenre()))
                 .collect(Collectors.toList());
-        return musicDTOList;
     }
     public List<Music> getMusicByGenre(List<String> genreList) {
         Set<Music> musicList = new HashSet<>();
@@ -45,7 +59,6 @@ public class MusicService {
             List<Music> musicsByGenre = musicRepository.findByGenre(genre);
             musicList.addAll(musicsByGenre);
         }
-
         return musicList.stream()
                 .map(m -> new Music(m.getId(), m.getNumber(), m.getTytul(), m.getArtysta(), m.getPlik(), m.getZdjecie(), m.getGenre()))
                 .collect(Collectors.toList());

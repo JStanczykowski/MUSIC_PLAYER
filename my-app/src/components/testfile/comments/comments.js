@@ -12,8 +12,7 @@ export const deleteCommentApi = async (id) => {
     const token = localStorage.getItem('accessToken');
     const decodedToken = jwt_decode(token);
     const username = decodedToken.sub;
-    console.log(" xd"+localStorage.getItem('accessToken'));
-    console.log(id)
+
     try {
         const response = await api.delete(`/api/v1/reviews/${id}`,
             {

@@ -18,7 +18,25 @@ const ListMessage = () =>{
     const mess = async (event) => {
         navigate('/app/message');
     }
+    const unActive = async (id) => {
+        console.log(id)
+        try {
+            const response = await api.put(
+                `/api/v1/message/unactive/${id}`,{},{
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                } });
+            console.log('Wiadomość została usunieta!');
+            if (response.status === 200) {
+                console.log('działa');
+                getMessage();
 
+            }
+        } catch (error) {
+            console.log('Wiadomość nie została usunieta!', error);
+            throw error;
+        }
+    }
     const inbox = async (event) => {
         window.location.reload();
     }
@@ -118,13 +136,13 @@ const ListMessage = () =>{
                     <h2>{msg.username}</h2>
                     <h4>{msg.title}</h4>
                     <p>{msg.messageBody}</p>
-                    {isReplyNotEmpty(msg.reply) && (
+
                         <div>
                             <button className="comment-form-button-reply" onClick={() => toggleReply(msg.id, "reply")}>
                                 Show Reply
                             </button>
                         </div>
-                    )}
+
                 </div>
                 {isReplyNotEmpty(msg.reply) && isReplyShown[msg.id]?.["reply"] && (
                     msg.reply.map((reply, index) => (
@@ -143,6 +161,9 @@ const ListMessage = () =>{
                             onChange={(e) => setText(e.target.value)}
                         />
                         <button className="comment-form-button" type="submit">Send</button>
+                        <button className="comment-form-delete" onClick={() => unActive(msg.id)}>
+                            UnActive
+                        </button>
                         <button
                             type="button"
                             className="comment-form-cancel-button"

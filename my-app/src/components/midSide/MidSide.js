@@ -41,7 +41,6 @@ function MidSide({status}) {
 
 
     const getMusic = async () => {
-        console.log('Wartość searchState:', searchState);
         try {
             const response = await api.get("/api/v1/music",{
                 headers: {

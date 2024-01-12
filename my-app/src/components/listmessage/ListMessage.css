@@ -1,0 +1,10 @@
+.comment-form-delete{
+    background-color: orangered;
+    border-radius: 10%;
+    color: white;
+    height: 44px;
+    width: 81px;
+}
+.comment-form-delete:hover{
+    background-color: darkorange;
+}
