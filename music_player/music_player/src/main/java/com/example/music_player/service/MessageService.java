@@ -12,8 +12,12 @@ import java.util.*;
 @Service
 public class MessageService {
 
-@Autowired
-    MessageRepository messageRepository;
+    private final MessageRepository messageRepository;
+    public MessageService(MessageRepository messageRepository) {
+        this.messageRepository = messageRepository;
+    }
+
+
 
     public List<Message> findAllMess() {return messageRepository.findAll();}
 

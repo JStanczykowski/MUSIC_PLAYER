@@ -24,9 +24,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/playlist")
 @CrossOrigin
 public class PlayListController {
-    @Autowired
-    private PlayListService playListService;
 
+    private final PlayListService playListService;
+
+    public PlayListController(PlayListService playListService) {
+        this.playListService = playListService;
+    }
 
     @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MODER')")
     @GetMapping("/names/{owner}")

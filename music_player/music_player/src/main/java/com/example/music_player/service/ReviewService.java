@@ -17,14 +17,17 @@ import java.util.stream.Collectors;
 
 @Service
 public class ReviewService {
-    @Autowired
-    private ReviewRepository reviewRepository;
+    private final ReviewRepository reviewRepository;
 
-    @Autowired
-    private MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
 
-    @Autowired
-    private MusicService musicService;
+    private final MusicService musicService;
+
+    public ReviewService(ReviewRepository reviewRepository, MongoTemplate mongoTemplate, MusicService musicService) {
+        this.reviewRepository = reviewRepository;
+        this.mongoTemplate = mongoTemplate;
+        this.musicService = musicService;
+    }
 
     public Review createReview(String reviewBody, String number, String owner, String parentId) {
         Date currentDate = new Date();

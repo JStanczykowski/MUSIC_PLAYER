@@ -19,8 +19,12 @@ import java.util.Map;
 @RequestMapping("/api/v1/reviews")
 @CrossOrigin
 public class ReviewController {
-    @Autowired
-    private ReviewService reviewService;
+
+    private final ReviewService reviewService;
+
+    public ReviewController(ReviewService reviewService) {
+        this.reviewService = reviewService;
+    }
 
     @PreAuthorize("hasAnyRole('USER', 'ADMIN','MODER')")
     @PostMapping

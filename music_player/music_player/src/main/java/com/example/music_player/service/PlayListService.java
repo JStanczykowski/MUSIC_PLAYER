@@ -20,12 +20,17 @@ import java.util.*;
 @Service
 public class PlayListService {
 
-    @Autowired
-    private PlayListRepository playListRepository;
-    @Autowired
-    private MongoTemplate mongoTemplate;
 
-    public PlayList addMusicToPlayListPost(String playlistId,List<String> musicIds) throws ChangeSetPersister.NotFoundException{
+    private final PlayListRepository playListRepository;
+
+    private final MongoTemplate mongoTemplate;
+
+    public PlayListService(PlayListRepository playListRepository, MongoTemplate mongoTemplate) {
+        this.playListRepository = playListRepository;
+        this.mongoTemplate = mongoTemplate;
+    }
+
+    public PlayList addMusicToPlayListPost(String playlistId, List<String> musicIds) throws ChangeSetPersister.NotFoundException{
 
             ObjectId playlistObjectId = new ObjectId(playlistId);
 
