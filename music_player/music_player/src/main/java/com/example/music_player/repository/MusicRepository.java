@@ -13,6 +13,5 @@ public interface MusicRepository extends MongoRepository<Music, ObjectId> {
     Optional<Music> findByNumber(String number);
     Optional<Music> findById (ObjectId id);
     List <Music> findByGenre (String genre);
-
     void delete(Music music);
 }

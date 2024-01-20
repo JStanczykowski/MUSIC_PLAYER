@@ -62,6 +62,13 @@ public class MessageService {
         }
         return messageList;
     }
+    public void unActiveMessage(ObjectId id) throws ChangeSetPersister.NotFoundException {
+        Message message = messageRepository.findById(id).orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+        Message message1 = message;
+        messageRepository.delete(message);
+        message1.setActive(false);
+        messageRepository.save(message1);
+    }
     public void replyMessage(ObjectId id,String reply,String username) throws ChangeSetPersister.NotFoundException{
         Message message = messageRepository.findById(id).orElseThrow(() -> new ChangeSetPersister.NotFoundException());
         ObjectId objectId = new ObjectId();

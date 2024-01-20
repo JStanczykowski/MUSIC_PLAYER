@@ -1,17 +1,12 @@
 package com.example.music_player.controller;
-
-
-import com.example.music_player.repository.MusicRepository;
 import com.example.music_player.service.MusicService;
 import com.example.music_player.model.Music;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -20,13 +15,14 @@ import java.util.Optional;
 @RequestMapping("/api/v1/music")
 @CrossOrigin
 public class MusicController {
-    @Autowired
-    private MusicService musicService;
-//    Pytania i odpowiedzi dotyczące muzyki:
-//
-//    Chatbot może odpowiadać na pytania użytkowników dotyczące informacji o artystach, albumach, tekstach piosenek itp.
-    @Autowired
-    private MusicRepository musicRepository;
+
+
+    private final MusicService musicService;
+
+    public MusicController(MusicService musicService) {
+        this.musicService = musicService;
+    }
+
 
     @PreAuthorize("hasAnyRole('USER', 'ADMIN','MODER')")
     @GetMapping
@@ -38,7 +34,6 @@ public class MusicController {
     @GetMapping("/getMusicByGenre")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<List<Music>> getMusicByGenre(@RequestParam List<String> genres){
-
         return new ResponseEntity<List<Music>>(musicService.getMusicByGenre(genres), HttpStatus.OK);
     }
     @PreAuthorize("hasAnyRole('USER', 'ADMIN','MODER')")
@@ -57,10 +52,14 @@ public class MusicController {
     @DeleteMapping("/{id}")
     @CrossOrigin(origins = "http://localhost:3000")
     public void deleteSingleMusic(@PathVariable ObjectId id) {
-
         if (musicService.singleMusicByID(id).isPresent()) {
-
             musicService.deleteSingleMusic(musicService.singleMusicByID(id));
         }
+    }
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN','MODER')")
+    @PostMapping
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public void addMusicToDataBase(@RequestBody Map<String, String> payload){
+        musicService.addMusic(payload.get("artist"),payload.get("file"),payload.get("picture"),payload.get("title"),payload.get("genre"));
     }
 }

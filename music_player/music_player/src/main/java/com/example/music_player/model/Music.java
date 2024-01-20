@@ -28,6 +28,15 @@ public class Music {
     @DocumentReference
     private List<Review> reviewIds;
 
+    public Music(String number, String tytul, String artysta, String zdjecie, String plik, String genre) {
+        this.number = number;
+        this.tytul = tytul;
+        this.artysta = artysta;
+        this.zdjecie = zdjecie;
+        this.plik = plik;
+        this.genre = genre;
+    }
+
     public Music(ObjectId id, java.lang.String number, java.lang.String tytul, java.lang.String artysta, java.lang.String plik, java.lang.String zdjecie, String genre) {
         this.id = id;
         this.number = number;

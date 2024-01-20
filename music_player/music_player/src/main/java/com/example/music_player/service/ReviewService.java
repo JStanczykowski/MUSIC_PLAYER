@@ -50,7 +50,7 @@ public class ReviewService {
         Update update = new Update().push("reviewIds", review);
         mongoTemplate.updateFirst(query, update, Music.class);
 
-        return review; // Zwracamy nową recenzję
+        return review;
     }
 
 

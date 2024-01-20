@@ -76,7 +76,11 @@ const Music = () => {
     };
 
     const back = async () => {
-        navigate("/admin/users");
+
+            localStorage.removeItem("accessToken");
+            navigate("/login");
+            window.location.reload();
+
     };
 
     useEffect(() => {

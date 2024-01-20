@@ -115,16 +115,7 @@ const AudioPlayer = (props) => {
     }
     const table = useSelector((state)=>state.playlist);
     const index = useSelector((state)=>state.index);
-    // useEffect(() => {
-    //     const audioObj = store.getState().audioElement;
-    //     if (audioObj) {
-    //         if (store.getState().isPlaying) {
-    //             audioObj.play();
-    //         } else {
-    //             audioObj.pause();
-    //         }
-    //     }
-    // }, [store.getState().isPlaying, store.getState().audioElement]);
+
     const handlePlay = () => {
         dispatch(pauseTrack());
         if (store.getState().audioElement) {

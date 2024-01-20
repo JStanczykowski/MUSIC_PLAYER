@@ -61,7 +61,9 @@ const Users = () =>{
     }, []);
     const navigate = useNavigate();
     const back =async()=>{
-       navigate('/admin');
+        localStorage.removeItem("accessToken");
+        navigate("/login");
+        window.location.reload();
     }
     return(
         <div className="xd2" ><div className="container2">

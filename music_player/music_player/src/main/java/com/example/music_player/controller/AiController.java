@@ -26,7 +26,8 @@ import java.util.Optional;
 public class AiController {
 
 
-    @Value("${env.API_KEY}") private  String aiApiKey;
+    @Value("${API_KEY}")
+    private  String aiApiKey;
     final private HttpClient client = HttpClient.newHttpClient();
     private static final URI AI_URI = URI.create("https://api.openai.com/v1/chat/completions");
     private final ObjectMapper jsonMapper;
