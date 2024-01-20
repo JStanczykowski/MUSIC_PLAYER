@@ -26,7 +26,7 @@ import java.util.Optional;
 public class AiController {
 
 
-    @Value("${API_KEY}")
+    @Value("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")
     private  String aiApiKey;
     final private HttpClient client = HttpClient.newHttpClient();
     private static final URI AI_URI = URI.create("https://api.openai.com/v1/chat/completions");
@@ -34,7 +34,7 @@ public class AiController {
 
 
     @Autowired
-    public AiController(ObjectMapper jsonMapper, @Value("${env.API_KEY}") String aiApiKey) {
+    public AiController(ObjectMapper jsonMapper, @Value("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") String aiApiKey) {
         this.jsonMapper = jsonMapper;
         this.aiApiKey = aiApiKey;
     }
