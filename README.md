@@ -17,6 +17,9 @@ Full-stack music player application using spring-boot,react, spring security,rea
 # PlayList
 ![image](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/98a84c8b-36f6-4fe9-b597-7bec74549d43)
 
+#Artist response from AI 
+![image](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/b0c85fc4-98d9-4f56-a7e6-a2cd624a3889)
+
 
 # User message to admin
 ![image](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/3df12a87-a0c1-4f94-9fe3-e8aafba73212)
