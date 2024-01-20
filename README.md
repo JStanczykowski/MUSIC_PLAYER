@@ -1,29 +1,33 @@
 # MUSIC_PLAYER
-Full-stack music player application using spring-boot,react, spring security,react-redux JWT tokens  and MongoDB. The application is not ready yet.
+Full-stack music player application using spring-boot,react, spring security,react-redux JWT tokens, OpenAI, Google Cloud  and MongoDB.
 
 
 # Login page
-![login_page](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/3b4f7929-3479-4967-90ff-4ae54046a430)
+![image](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/8b4f7ea0-b1b9-4624-a2aa-07418a7c2aa5)
+
 
 # Main page
-![main](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/75a3a428-12e7-4cbd-8e94-0fd82f515026)
+![image](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/d403e8bf-6255-4166-a3d9-f64f3d939e6d)
+
 
 # Review
-![review](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/5358d1a8-af08-403f-a3a9-50d4597e3c3b)
-
-# PlayList creator
-![playlist](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/ede5c4e7-6e28-45b6-b77c-90d425681077)
+![image](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/8d88e58a-05a0-47e7-8d78-cd21975ce212)
 
 
-# PlayList options
-![playlist2](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/9e7dd38e-163b-49f5-939b-4c5c3cbc36d5)
+# PlayList
+![image](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/98a84c8b-36f6-4fe9-b597-7bec74549d43)
+
 
 # User message to admin
-![message](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/f4f5d6c9-aa09-44cd-a29b-6e211d9538f4)
+![image](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/3df12a87-a0c1-4f94-9fe3-e8aafba73212)
+
+![image](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/2a10b9f7-ed17-43d7-a818-324e1a509f60)
 
 # Adding a song to a playlist
 ![addtoplaylist](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/afd0a148-4727-4cbe-96be-547145acbca8)
 
+# Admin music add 
+![image](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/4231cc5f-4a95-4dd2-b2b0-dec68020c9c3)
 
 # Admin music controller
 ![adminMusic](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/3227a2b4-43c9-4b70-bddb-c6c6fa54388c)
@@ -32,5 +36,6 @@ Full-stack music player application using spring-boot,react, spring security,rea
 ![adminuser](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/5437caf6-5f0c-454f-8b80-426d3cfac479)
 
 # Admin reply to the message
-![adminreplyMess](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/ac627bd2-8c98-4199-8e14-ca85a78fb74c)
+![image](https://github.com/JStanczykowski/MUSIC_PLAYER/assets/100679569/a857ee8b-0f6b-44e7-a80a-f5c629f019ac)
+
 
